@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boda Bryan & Yosseline</title>
+    <!-- Fuentes elegantes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f5f2eb; /* Fondo crema elegante */
+            color: #2c2c2c;
+            text-align: center;
+            overflow-x: hidden;
+        }
+        
+        /* Pantalla de Entrada */
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f5f2eb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease-in-out;
+        }
+        #welcome-screen h1 {
+            font-family: 'Alex Brush', cursive;
+            font-size: 3.5rem;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+        .btn-enter {
+            padding: 12px 35px;
+            font-size: 0.85rem;
+            background-color: #1a1a1a;
+            color: #f5f2eb;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        .btn-enter:hover {
+            background-color: #444;
+            transform: scale(1.03);
+        }
+
+        /* Contenedor Móvil */
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 0 25px rgba(0,0,0,0.05);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        section {
+            padding: 45px 25px;
+        }
+
+        /* Portada Principal */
+        .hero {
+            position: relative;
+            height: 480px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-bottom: 40px;
+            background-image: url('foto_portada.jpg'); /* FOTO PORTADA */
+            background-size: cover;
+            background-position: center;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.8) 100%);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: #f5f2eb;
+        }
+        .hero h2 {
+            font-family: 'Alex Brush', cursive;
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 5px;
+        }
+        .hero p.subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: #d8d0c0;
+        }
+
+        /* Cuenta Regresiva */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+        }
+        .time-block {
+            background: #faf8f5;
+            border: 1px solid #e3ded4;
+            padding: 12px 5px;
+            border-radius: 8px;
+            min-width: 75px;
+        }
+        .time-block span {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        .time-block label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: #777;
+            letter-spacing: 1px;
+        }
+
+        /* Títulos */
+        .section-title {
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            color: #1a1a1a;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 35px;
+            height: 1px;
+            background-color: #1a1a1a;
+            margin: 8px auto 0 auto;
+        }
+
+        /* Galería Estilo Collage */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        .gallery-item {
+            width: 100%;
+            height: 160px;
+            border-radius: 4px;
+            object-fit: cover;
+            border: 1px solid #eee;
+        }
+        .gallery-wide {
+            grid-column: span 2;
+            height: 200px;
+        }
+
+        /* Cronograma Estilo Lista */
+        .timeline {
+            text-align: left;
+            margin: 20px 10px;
+        }
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0ebe0;
+            font-size: 0.9rem;
+        }
+        .timeline-time {
+            font-weight: 600;
+            color: #1a1a1a;
+            width: 80px;
+        }
+        .timeline-desc {
+            color: #555;
+            flex-grow: 1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+
+        /* Sección Negra (Ubicación y RSVP) */
+        .dark-section {
+            background-color: #111111;
+            color: #ffffff;
+        }
+        .dark-section .section-title {
+            color: #ffffff;
+        }
+        .dark-section .section-title::after {
+            background-color: #ffffff;
+        }
+        .dark-section p {
+            font-size: 0.85rem;
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Botones */
+        .btn-action {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #ffffff;
+            color: #111111;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-top: 10px;
+            border: 1px solid #ffffff;
+        }
+        .btn-action:hover {
+            background-color: transparent;
+            color: #ffffff;
+        }
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            border-color: #25D366;
+        }
+        .btn-whatsapp:hover {
+            background-color: transparent;
+            color: #25D366;
+        }
+
+        /* Foto Final */
+        .foto-final-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+
+        /* Reproductor Flotante */
+        #music-player {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #e3ded4;
+            padding: 8px 14px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            z-index: 1000;
+        }
+        .player-btn {
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .music-title {
+            font-size: 0.7rem;
+            color: #444;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PANTALLA DE BIENVENIDA -->
+    <div id="welcome-screen">
+        <h1 style="font-family: 'Montserrat', sans-serif; font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; color: #777;">Bienvenidos A La Boda De</h1>
+        <h1>Bryan & Yosseline</h1>
+        <button class="btn-enter" onclick="startInvitation()">Abrir Invitación</button>
+    </div>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="container">
+        
+        <!-- HERO PORTADA -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Bryan & Yosseline</h2>
+                <p class="subtitle">Nuestra Boda</p>
+            </div>
+        </section>
+
+        <!-- CUENTA REGRESIVA -->
+        <section style="background-color: #faf9f6;">
+            <h3 class="section-title">Cuenta Regresiva</h3>
+            <div class="countdown">
+                <div class="time-block"><span id="days">00</span><label>Días</label></div>
+                <div class="time-block"><span id="hours">00</span><label>Horas</label></div>
+                <div class="time-block"><span id="minutes">00</span><label>Min</label></div>
+                <div class="time-block"><span id="seconds">00</span><label>Seg</label></div>
+            </div>
+        </section>
+
+        <!-- GALERÍA COLLAGE -->
+        <section>
+            <div class="gallery-grid">
+                <img src="foto1.jpg" class="gallery-item gallery-wide" alt="Bryan">
+                <img src="foto2.jpg" class="gallery-item" alt="Yosseline">
+                <img src="foto3.jpg" class="gallery-item" alt="Juntos">
+            </div>
+        </section>
+
+        <!-- CRONOGRAMA -->
+        <section style="background-color: #faf9f6;">
+            <h3 class="section-title">Cronograma del Evento</h3>
+            <div class="timeline">
+                <div class="timeline-item"><div class="timeline-time">7:00 PM</div><div class="timeline-desc">Recepción y Bienvenida</div></div>
+                <div class="timeline-item"><div class="timeline-time">8:00 PM</div><div class="timeline-desc">Cena Formal</div></div>
+                <div class="timeline-item"><div class="timeline-time">9:00 PM</div><div class="timeline-desc">Brindis y Primer Baile</div></div>
+                <div class="timeline-item"><div class="timeline-time">10:00 PM</div><div class="timeline-desc">Apertura del Baile</div></div>
+                <div class="timeline-item"><div class="timeline-time">11:00 PM</div><div class="timeline-desc">Banda Norteña</div></div>
+            </div>
+        </section>
+
+        <!-- UBICACIÓN (SECCIÓN NEGRA) -->
+        <section class="dark-section">
+            <h3 class="section-title">Día del Evento</h3>
+            <p><strong>28 DE AGOSTO DE 2026 | 7:00 PM</strong></p>
+            <p><strong>LUGAR:</strong> JARDÍN Y TERRAZA PUERTA AL PARAÍSO</p>
+            <p><strong>DIRECCIÓN:</strong> C. ESPAÑA 8451, JUÁREZ, 22040 TIJUANA, B.C.</p>
+            <!-- CAMBIA EL LINK DE GOOGLE MAPS DE ABAJO SI TIENES EL EXACTO -->
+            <a href="https://maps.google.com" target="_blank" class="btn-action">Ver Mapa Completo</a>
+        </section>
+
+        <!-- RSVP (CONFIRMACIÓN) -->
+        <section class="dark-section" style="border-top: 1px solid #222; padding-top: 20px;">
+            <h3 class="section-title">RSVP</h3>
+            <p>PARA NOSOTROS ES MUY IMPORTANTE COMPARTIR ESTE DÍA CONTIGO. POR FAVOR AYÚDANOS A CONFIRMAR TU ASISTENCIA ANTES DEL DÍA 10 DE AGOSTO DE 2026.</p>
+            
+            <!-- !!! RECUERDA CAMBIAR EL NÚMERO DE TELÉFONO ABAJO (Donde dice 521234567890) !!! -->
+            <a href="https://wa.me/521234567890?text=¡Hola!%20Confirmo%20mi%20asistencia%20a%20la%20boda%20de%20Bryan%20&%20Yosseline." 
+               target="_blank" class="btn-action btn-whatsapp">
+               Confirmar aquí por WhatsApp
+            </a>
+        </section>
+
+        <!-- FOTO FINAL -->
+        <section>
+            <h3 class="section-title" style="font-family: 'Alex Brush', cursive; font-size: 2rem; text-transform: none;">Esperamos contar con tu presencia</h3>
+            <img src="foto_final.jpg" class="foto-final-img" alt="Invitación Final">
+        </section>
+
+    </div>
+
+    <!-- REPRODUCTOR MÚSICA -->
+    <div id="music-player" style="display: none;">
+        <span class="music-title">🎵 Canción de Fondo</span>
+        <button class="player-btn" id="play-pause-btn" onclick="toggleMusic()">❚❚</button>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="cancion.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const music = document.getElementById('bg-music');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+
+        function startInvitation() {
+            document.getElementById('welcome-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('welcome-screen').style.display = 'none';
+                document.getElementById('music-player').style.display = 'flex';
+            }, 1000);
+            music.play().catch(e => console.log("Audio play diferido"));
+        }
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                playPauseBtn.textContent = '❚❚';
+            } else {
+                music.pause();
+                playPauseBtn.textContent = '▶';
+            }
+        }
+
+        // Cuenta regresiva: 28 de Agosto de 2026, 7:00 PM (Mes 7 es Agosto en JS)
+        const eventDate = new Date(2026, 7, 28, 19, 0, 0).getTime();
+
+        setInterval(function() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").textContent = days < 10 ? "0" + days : days;
+            document.getElementById("hours").textContent = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").textContent = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").textContent = seconds < 10 ? "0" + seconds : seconds;
+        }, 1000);
+    </script>
+</body>
+</html>
