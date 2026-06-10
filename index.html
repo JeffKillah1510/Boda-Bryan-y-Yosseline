@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boda Bryan & Yosseline</title>
+    <title>Boda Yoseli & Bryan</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Parisienne&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,11 +23,28 @@
             justify-content: center; align-items: center; z-index: 9999;
             transition: opacity 1s ease-in-out;
         }
-        #welcome-screen h1 { font-family: 'Alex Brush', cursive; font-size: 3.5rem; color: #1a1a1a; }
+        
+        .names-cursive { 
+            font-family: 'Alex Brush', cursive; 
+            font-size: 3.4rem; 
+            color: #1a1a1a;
+            font-weight: 400;
+            line-height: 1.2;
+        }
+        
+        .ampersand {
+            font-family: 'Parisienne', cursive;
+            font-size: 3.8rem;
+            color: #b3966a; 
+            display: inline-block;
+            margin: 0 4px;
+            vertical-align: middle;
+        }
+        
         .btn-enter {
             padding: 12px 35px; font-size: 0.85rem; background-color: #1a1a1a; color: #f5f2eb;
             border: none; border-radius: 25px; cursor: pointer; letter-spacing: 3px;
-            text-transform: uppercase; margin-top: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-transform: uppercase; margin-top: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         .container { max-width: 450px; margin: 0 auto; background-color: #ffffff; min-height: 100vh; padding-bottom: 80px; position: relative; }
         section { padding: 45px 25px; position: relative; }
@@ -35,7 +52,7 @@
         /* Portada */
         .hero {
             position: relative; height: 480px; display: flex; flex-direction: column;
-            justify-content: flex-end; padding-bottom: 40px;
+            justify-content: flex-end; padding-bottom: 50px;
             background-image: url('foto_portada.jpg'); 
             background-size: cover; background-position: center;
         }
@@ -44,60 +61,309 @@
             background: linear-gradient(to bottom, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.8) 100%);
         }
         .hero-content { position: relative; z-index: 2; color: #f5f2eb; }
-        .hero h2 { font-family: 'Alex Brush', cursive; font-size: 4rem; line-height: 1.1; }
+        .hero .names-cursive { color: #f5f2eb; font-size: 3.8rem; }
+        .hero .ampersand { color: #f5f2eb; font-size: 4.2rem; }
 
-        /* Cuenta Regresiva */
+        /* Contenedor Cuenta Regresiva */
+        .countdown-section { background-color: #ffffff; padding: 35px 25px 25px 25px; }
         .countdown { display: flex; justify-content: center; gap: 10px; margin-top: 25px; }
         .time-block { background: #faf8f5; border: 1px solid #e3ded4; padding: 12px 5px; border-radius: 8px; min-width: 75px; }
         .time-block span { display: block; font-size: 1.5rem; font-weight: 600; color: #1a1a1a; }
         .time-block label { font-size: 0.65rem; text-transform: uppercase; color: #777; letter-spacing: 1px; }
 
+        /* Máquina de escribir */
+        .typing-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+            min-height: 25px;
+        }
+        .typing-container {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #b3966a;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            display: inline-block;
+        }
+        
+        .start-typing {
+            animation: teclearLetras 2.5s steps(35) forwards;
+        }
+
+        @keyframes teclearLetras {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* BOTÓN DE CALENDARIO DE LA INVITACIÓN */
+        .calendar-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 25px;
+        }
+        
+        .btn-calendar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border: 1px solid #b3966a;
+            background-color: transparent;
+            color: #b3966a;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            width: 100%;
+            max-width: 280px;
+        }
+        
+        .btn-calendar:hover {
+            background-color: #b3966a;
+            color: #ffffff;
+        }
+
+        /* ========================================================
+           ESTILOS DE LAS VENTANAS EMERGENTES (MODALES)
+        ======================================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .calendar-modal, .rsvp-modal {
+            background-color: #f4f4f4;
+            width: 320px; /* Un poco más ancho para albergar el formulario */
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            text-align: left;
+            animation: modalFadeIn 0.2s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-options-list {
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-options-list a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 20px;
+            color: #2b2b2b;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.15s;
+        }
+
+        .modal-options-list a:hover {
+            background-color: #f7f7f7;
+        }
+
+        .modal-options-list img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+
+        .modal-close-btn {
+            width: 100%;
+            background-color: #e9e9e9;
+            border: none;
+            padding: 16px;
+            color: #555555;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background-color 0.15s;
+        }
+
+        .modal-close-btn:hover {
+            background-color: #dfdfdf;
+        }
+
+        .modal-close-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: #555555;
+        }
+
+        /* Estilos específicos para el cuadro de confirmación RSVP */
+        .rsvp-modal {
+            background-color: #ffffff;
+            text-align: center;
+            padding: 25px 20px;
+        }
+        
+        .rsvp-modal h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .rsvp-modal p {
+            font-size: 0.85rem;
+            color: #666666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        /* Campos del Formulario RSVP */
+        .rsvp-form-group {
+            text-align: left;
+            margin-bottom: 12px;
+        }
+        .rsvp-form-group label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+        .rsvp-form-group input, .rsvp-form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e3ded4;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: #2c2c2c;
+            background-color: #faf8f5;
+        }
+        .rsvp-form-group input:focus, .rsvp-form-group select:focus {
+            outline: none;
+            border-color: #b3966a;
+        }
+
+        .rsvp-buttons-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn-modal-rsvp {
+            padding: 12px 25px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+            border: none;
+        }
+
+        .btn-modal-yes {
+            background-color: #b3966a;
+            color: #ffffff;
+            border: 1px solid #b3966a;
+        }
+
+        .btn-modal-yes:hover {
+            background-color: #9c8055;
+            border-color: #9c8055;
+        }
+
+        .btn-modal-no {
+            background-color: #f0f0f0;
+            color: #555555;
+            border: 1px solid #f0f0f0;
+        }
+
+        .btn-modal-no:hover {
+            background-color: #e2e2e2;
+            border-color: #e2e2e2;
+        }
+
+        /* Fin de Estilos de los Modales */
+
         .section-title { font-size: 1.2rem; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 25px; text-transform: uppercase; }
         
-        /* Sección de Fotos con Adornos Flotantes Activos */
-        .gallery-section { background-color: #f5f2eb; position: relative; padding-top: 60px; padding-bottom: 60px; }
-        
-        /* Posicionamiento preciso de tus imágenes PNG de adorno */
-        .decor-palomas { position: absolute; top: 15px; left: 15px; width: 65px; opacity: 0.8; z-index: 3; }
-        .decor-anillos { position: absolute; bottom: 15px; left: 15px; width: 55px; opacity: 0.8; z-index: 3; }
-        .decor-iglesia { position: absolute; bottom: 170px; right: 75px; width: 60px; opacity: 0.8; z-index: 3; }
-        .decor-arco { position: absolute; top: 40px; right: 10px; width: 180px; opacity: 0.4; z-index: 1; }
-        
+        /* Sección de Fotos */
+        .gallery-section { background-color: #f5f2eb; padding-top: 40px; padding-bottom: 40px; }
         .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; position: relative; z-index: 2; }
-        .gallery-item { width: 100%; height: 150px; object-fit: cover; border-radius: 2px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .gallery-wide { grid-column: span 1; height: 180px; width: 90%; }
-        .gallery-right { grid-column: span 1; height: 260px; margin-top: 40px; width: 95%; margin-left: auto; }
+        .gallery-item { width: 100%; height: 150px; object-fit: cover; border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .gallery-wide { grid-column: span 1; height: 180px; width: 100%; }
+        .gallery-right { grid-column: span 1; height: 260px; margin-top: 40px; width: 100%; }
 
-        /* Cronograma con Flores y Mesa */
-        .cronograma-section { position: relative; background-color: #f5f2eb; padding-top: 40px; }
-        .decor-ramo { position: absolute; top: 15px; right: 15px; width: 85px; opacity: 0.8; z-index: 3; }
-        .decor-mesa { position: absolute; bottom: 25px; right: 15px; width: 130px; opacity: 0.8; z-index: 3; }
-        
-        .timeline { text-align: left; margin: 30px 10px; max-width: 65%; position: relative; z-index: 2; }
-        .timeline-item { display: flex; flex-direction: column; padding: 10px 0; border-bottom: 1px solid #dcd7cc; }
-        .timeline-time { font-weight: 600; font-size: 0.85rem; color: #1a1a1a; margin-bottom: 2px; }
-        .timeline-desc { color: #555; text-transform: uppercase; letter-spacing: 1px; font-size: 0.75rem; }
+        /* Cronograma */
+        .cronograma-section { background-color: #ffffff; padding-top: 40px; }
+        .timeline { text-align: left; margin: 30px auto; max-width: 85%; position: relative; z-index: 2; }
+        .timeline-item { display: flex; flex-direction: column; padding: 12px 0; border-bottom: 1px solid #e3ded4; }
+        .timeline-time { font-weight: 600; font-size: 0.9rem; color: #b3966a; margin-bottom: 2px; }
+        .timeline-desc { color: #444; text-transform: uppercase; letter-spacing: 1px; font-size: 0.75rem; }
 
-        /* Secciones Oscuras (Día del Evento y RSVP) */
+        /* Secciones Oscuras */
         .dark-section { background-color: #000000; color: #ffffff; padding: 50px 30px; position: relative; }
-        .dark-section .section-title { color: #ffffff; font-size: 1.5rem; }
+        .dark-section .section-title { color: #ffffff; font-size: 1.4rem; }
         .dark-section p { font-size: 0.85rem; color: #e0e0e0; letter-spacing: 1px; line-height: 1.8; margin-bottom: 15px; }
-        .decor-pastel { position: absolute; top: 25px; right: 25px; width: 55px; opacity: 0.7; z-index: 3; }
 
         .btn-action {
-            display: inline-block; padding: 12px 30px; background-color: #ffffff; color: #000000;
+            display: inline-block; padding: 14px 30px; background-color: #ffffff; color: #000000;
             text-decoration: none; border-radius: 0px; font-size: 0.75rem; text-transform: uppercase;
-            letter-spacing: 2px; font-weight: 500; margin-top: 15px; border: 1px solid #ffffff; transition: all 0.3s;
+            letter-spacing: 2px; font-weight: 600; margin-top: 15px; border: 1px solid #ffffff; transition: all 0.3s;
+            width: 100%; max-width: 280px;
         }
         .btn-action:hover { background-color: transparent; color: #ffffff; }
-        .btn-whatsapp { background-color: #25D366; color: white; border-color: #25D366; font-size: 0.8rem; }
-        .btn-whatsapp:hover { background-color: transparent; color: #25D366; }
+        
+        /* Botón RSVP Dorado */
+        .btn-rsvp { 
+            background-color: #b3966a; 
+            color: #ffffff; 
+            border: 1px solid #b3966a; 
+            box-shadow: 0 4px 15px rgba(179, 150, 106, 0.3);
+            cursor: pointer;
+        }
+        .btn-rsvp:hover { 
+            background-color: #ffffff; 
+            color: #b3966a; 
+            border-color: #ffffff;
+        }
 
-        .foto-final-img { width: 80%; height: auto; max-height: 300px; object-fit: cover; margin: 25px auto 0 auto; display: block; }
+        .foto-final-img { width: 85%; height: auto; max-height: 300px; object-fit: cover; margin: 25px auto 0 auto; display: block; border-radius: 4px; }
 
         #music-player {
             position: fixed; bottom: 25px; right: 25px; background: rgba(255, 255, 255, 0.95);
             border: 1px solid #e3ded4; padding: 8px 14px; border-radius: 30px; display: flex; align-items: center; gap: 10px; z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .player-btn { background: #1a1a1a; color: white; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 0.7rem; }
         .music-title { font-size: 0.7rem; color: #444; }
@@ -105,9 +371,11 @@
 </head>
 <body>
 
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(typeof iframeCargado !== 'undefined') { iframeCargado(); }"></iframe>
+
     <div id="welcome-screen">
-        <h1 style="font-family: 'Montserrat', sans-serif; font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: #777;">Nuestra Boda</h1>
-        <h1 style="margin-top: 10px;">Bryan & Yosseline</h1>
+        <h2 style="font-family: 'Montserrat', sans-serif; font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: #777; margin-bottom: 10px;">Nuestra Boda</h2>
+        <div class="names-cursive">Yoseli<span class="ampersand">&</span>Bryan</div>
         <button class="btn-enter" onclick="startInvitation()">Abrir Invitación</button>
     </div>
 
@@ -115,40 +383,93 @@
         
         <section class="hero">
             <div class="hero-content">
-                <h2 style="font-size: 3.5rem;">Bryan & Yosseline</h2>
+                <div class="names-cursive">Yoseli<span class="ampersand">&</span>Bryan</div>
             </div>
         </section>
 
-        <section style="background-color: #ffffff;">
+        <section class="countdown-section">
+            <div class="typing-wrapper">
+                <div class="typing-container" id="animated-date">Viernes 28 de Agosto de 2026</div>
+            </div>
+
             <div class="countdown">
                 <div class="time-block"><span id="days">00</span><label>Días</label></div>
                 <div class="time-block"><span id="hours">00</span><label>Horas</label></div>
                 <div class="time-block"><span id="minutes">00</span><label>Min</label></div>
                 <div class="time-block"><span id="seconds">00</span><label>Seg</label></div>
             </div>
+
+            <div class="calendar-wrapper">
+                <button class="btn-calendar" onclick="openCalendarModal()">
+                    📅 Agregar al Calendario
+                </button>
+            </div>
         </section>
 
-        <section class="gallery-section">
-            <img src="decor_palomas.png" class="decor-palomas" alt="">
-            <img src="decor_anillos.png" class="decor-anillos" alt="">
-            <img src="decor_iglesia.png" class="decor-iglesia" alt="">
-            <img src="decor_arco.png" class="decor-arco" alt="">
-
-            <div class="gallery-grid">
-                <div style="grid-column: span 1; display: flex; flex-direction: column; gap: 15px; align-items: flex-start;">
-                    <img src="foto1.pjg.jpeg" class="gallery-item gallery-wide" alt="Bryan">
-                    <img src="foto2.jpg.jpeg" class="gallery-item" style="width: 85%; height: 130px; margin-left: 20px;" alt="Yosseline">
+        <div id="calendarModalOverlay" class="modal-overlay" onclick="closeCalendarModal()">
+            <div class="calendar-modal" onclick="event.stopPropagation()">
+                <div class="modal-options-list">
+                    <a href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0AURL:https%3A%2F%2Fcalendar.google.com%0ADTSTART:20260828T190000%0ADTEND:20260829T020000%0ASUMMARY:Boda%20Yoseli%20%26%20Bryan%0ADESCRIPTION:%C2%A1Acomp%C3%A1%C3%B1anos%20a%20celebrar%20nuestra%20boda%21%0ALOCATION:Jard%C3%ADn%20y%20Terraza%20Puerta%20al%20Para%C3%ADso%2C%20C.%20Espa%C3%B1a%208451%2C%20Ju%C3%A1rez%2C%2022040%20Tijuana%2C%20B.C.%0AEND:VEVENT%0AEND:VCALENDAR" download="Boda_Yoseli_y_Bryan.ics">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple logo"> Apple
+                    </a>
+                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Yoseli+%26+Bryan&dates=20260828T190000/20260829T020000&details=¡Acompáñanos+a+celebrar+nuestra+boda!+Por+favor+confirma+tu+asistencia.&location=Jardín+y+Terraza+Puerta+al+Paraíso,+C.+España+8451,+Juárez,+22040+Tijuana,+B.C.&sf=true&output=xml" target="_blank">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Google_Calendar_icon_%282020%29.svg" alt="Google Calendar"> Google
+                    </a>
+                    <a href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0AURL:https%3A%2F%2Fcalendar.google.com%0ADTSTART:20260828T190000%0ADTEND:20260829T020000%0ASUMMARY:Boda%20Yoseli%20%26%20Bryan%0ADESCRIPTION:%C2%A1Acomp%C3%A1%C3%B1anos%20a%20celebrar%20nuestra%20boda%21%0ALOCATION:Jard%C3%ADn%20y%20Terraza%20Puerta%20al%20Para%C3%ADso%2C%20C.%20Espa%C3%B1a%208451%2C%20Ju%C3%A1rez%2C%2022040%20Tijuana%2C%20B.C.%0AEND:VEVENT%0AEND:VCALENDAR" download="Boda_Yoseli_y_Bryan.ics">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3652/3652191.png" alt="iCal logo"> iCal File
+                    </a>
                 </div>
-                <img src="foto3.jpg.jpeg" class="gallery-item gallery-right" alt="Juntos">
+                <button class="modal-close-btn" onclick="closeCalendarModal()">
+                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    Close
+                </button>
+            </div>
+        </div>
+
+        <div id="rsvpModalOverlay" class="modal-overlay" onclick="closeRsvpModal()">
+            <div class="rsvp-modal" onclick="event.stopPropagation()">
+                <h4>Confirmar Asistencia</h4>
+                <p id="rsvp-status-text">Por favor introduce tus datos para registrarte y generar tus pases.</p>
+                
+                <div id="rsvp-form-container">
+                    <div class="rsvp-form-group">
+                        <label for="guest-name">Nombre Completo:</label>
+                        <input type="text" id="guest-name" placeholder="Ej. Juan Pérez">
+                    </div>
+
+                    <div class="rsvp-form-group">
+                        <label for="has-companion">¿Llevas acompañante?</label>
+                        <select id="has-companion" onchange="toggleCompanionField()">
+                            <option value="no">No, asistiré solo/a</option>
+                            <option value="si">Sí, asistiré con alguien</option>
+                        </select>
+                    </div>
+
+                    <div class="rsvp-form-group" id="companion-wrapper" style="display: none;">
+                        <label for="companion-name">Nombre del Acompañante:</label>
+                        <input type="text" id="companion-name" placeholder="Ej. María López">
+                    </div>
+                </div>
+
+                <div class="rsvp-buttons-container" id="rsvp-actions">
+                    <button class="btn-modal-rsvp btn-modal-yes" onclick="confirmAttendance()">Confirmar y Ver Pase</button>
+                    <button class="btn-modal-rsvp btn-modal-no" onclick="closeRsvpModal()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <section class="gallery-section">
+            <div class="gallery-grid">
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <img src="foto1.jpg.jpeg" onerror="this.onerror=function(){this.src='foto1.jpg';};" class="gallery-item gallery-wide" alt="Bryan con traje">
+                    <img src="foto2.jpg.jpeg" class="gallery-item" style="height: 130px;" alt="Yoseli">
+                </div>
+                <img src="foto3.jpg.jpeg" class="gallery-item gallery-right" alt="Yoseli y Bryan">
             </div>
         </section>
 
         <section class="cronograma-section">
-            <img src="decor_ramo.png" class="decor-ramo" alt="">
-            <img src="decor_mesa.png" class="decor-mesa" alt="">
-
-            <h3 class="section-title" style="text-align: left; font-size: 1.6rem; font-weight: 300; font-family: 'Montserrat', sans-serif;">CRONOGRAMA<br>DEL EVENTO</h3>
-            
+            <h3 class="section-title" style="text-align: center; font-size: 1.4rem; font-weight: 400; letter-spacing: 4px;">CRONOGRAMA DEL EVENTO</h3>
             <div class="timeline">
                 <div class="timeline-item"><span class="timeline-time">7:00 PM</span><span class="timeline-desc">Recepción y Bienvenida</span></div>
                 <div class="timeline-item"><span class="timeline-time">8:00 PM</span><span class="timeline-desc">Cena Formal</span></div>
@@ -160,23 +481,22 @@
 
         <section class="dark-section">
             <h3 class="section-title">DÍA DEL EVENTO</h3>
-            <p style="color: #b3966a; font-weight: 600;">28 DE AGOSTO DE 2026 | 7:00 PM</p>
+            <p style="color: #b3966a; font-weight: 600; letter-spacing: 2px;">28 DE AGOSTO DE 2026 | 7:00 PM</p>
             <p style="margin-top: 15px;"><strong>LUGAR DEL EVENTO:</strong><br>JARDÍN Y TERRAZA PUERTA AL PARAÍSO</p>
             <p><strong>DIRECCIÓN:</strong><br>C. ESPAÑA 8451, JUÁREZ, 22040 TIJUANA, B.C.</p>
-            <a href="https://maps.google.com" target="_blank" class="btn-action">Ver ubicación en mapa</a>
+            <a href="http://maps.google.com/?q=C.+Espa%C3%B1a+8451,+Ju%C3%A1rez,+22040+Tijuana,+B.C." target="_blank" class="btn-action">Ver ubicación en mapa</a>
         </section>
 
-        <section class="dark-section" style="border-top: 1px solid #1a1a1a;">
-            <img src="decor_pastel.png" class="decor-pastel" alt="">
+        <section class="dark-section" style="border-top: 1px solid #222;">
             <h3 class="section-title">RSVP</h3>
-            <p style="font-size: 0.75rem; color: #aaa;">CONFIRMACIÓN DE ASISTENCIA</p>
-            <p style="font-size: 0.8rem; margin: 15px 0;">PARA NOSOTROS ES MUY IMPORTANTE COMPARTIR ESTE DÍA CONTIGO. POR FAVOR AYÚDANOS A CONFIRMAR TU ASISTENCIA ANTES DEL DIA 10 DE AGOSTO DE 2026.</p>
-            <a href="https://wa.me/521234567890?text=Hola!%20Confirmo%20asistencia%20a%20la%20boda%20de%20Bryan%20y%20Yosseline" target="_blank" class="btn-action btn-whatsapp">Por favor de confirmar aquí</a>
+            <p style="font-size: 0.75rem; color: #b3966a; letter-spacing: 2px;">CONFIRMACIÓN DE ASISTENCIA</p>
+            <p style="font-size: 0.8rem; margin: 20px 0; color: #d5d5d5;">PARA NOSOTROS ES MUY IMPORTANTE COMPARTIR ESTE DÍA CONTIGO. POR FAVOR AYÚDANOS A CONFIRMAR TU ASISTENCIA ANTES DEL DÍA 10 DE AGOSTO DE 2026.</p>
+            <button onclick="openRsvpModal()" class="btn-action btn-rsvp">Por favor de confirmar aquí</button>
         </section>
 
-        <section style="background-color: #f5f2eb;">
-            <h3 style="font-family: 'Alex Brush', cursive; font-size: 2.2rem; font-weight: 400;">Esperamos contar con tu presencia</h3>
-            <img src="foto_final.jpg.jpeg" class="foto-final-img" alt="Final">
+        <section style="background-color: #f5f2eb; padding-bottom: 50px;">
+            <h3 style="font-family: 'Alex Brush', cursive; font-size: 2.5rem; font-weight: 400; color: #1a1a1a;">Esperamos contar con tu presencia</h3>
+            <img src="foto_final.jpg.jpeg" class="foto-final-img" alt="Yoseli & Bryan">
         </section>
 
     </div>
@@ -191,19 +511,213 @@
     <script>
         const music = document.getElementById('bg-music');
         const playPauseBtn = document.getElementById('play-pause-btn');
+        let enviandoFormulario = false;
+
+        // Variables globales para generar el pase al final
+        let nombreGlobal = "";
+        let acompGlobal = "";
+        let totalPersonasGlobal = 1;
 
         function startInvitation() {
             document.getElementById('welcome-screen').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('welcome-screen').style.display = 'none';
                 document.getElementById('music-player').style.display = 'flex';
+                document.getElementById('animated-date').classList.add('start-typing');
             }, 1000);
-            music.play().catch(e => console.log("Audio diferido"));
+            music.play().catch(e => console.log("Audio diferido por políticas del navegador"));
         }
 
         function toggleMusic() {
             if (music.paused) { music.play(); playPauseBtn.textContent = '❚❚'; }
             else { music.pause(); playPauseBtn.textContent = '▶'; }
+        }
+
+        function openCalendarModal() {
+            document.getElementById('calendarModalOverlay').classList.add('show');
+        }
+
+        function closeCalendarModal() {
+            document.getElementById('calendarModalOverlay').classList.remove('show');
+        }
+
+        function openRsvpModal() {
+            document.getElementById('rsvp-status-text').style.display = "block";
+            document.getElementById('rsvp-status-text').textContent = "Por favor introduce tus datos para registrarte y generar tus pases.";
+            document.getElementById('rsvp-form-container').style.display = "block";
+            document.getElementById('rsvp-actions').style.display = "flex";
+            document.getElementById('guest-name').value = "";
+            document.getElementById('companion-name').value = "";
+            document.getElementById('has-companion').value = "no";
+            document.getElementById('companion-wrapper').style.style = "none";
+            document.getElementById('rsvpModalOverlay').classList.add('show');
+        }
+
+        function closeRsvpModal() {
+            document.getElementById('rsvpModalOverlay').classList.remove('show');
+        }
+
+        function toggleCompanionField() {
+            const hasCompanion = document.getElementById('has-companion').value;
+            const wrapper = document.getElementById('companion-wrapper');
+            wrapper.style.display = (hasCompanion === 'si') ? 'block' : 'none';
+        }
+
+        function confirmAttendance() {
+            const nombre = document.getElementById('guest-name').value.trim();
+            const llevaAcomp = document.getElementById('has-companion').value;
+            const nombreAcomp = document.getElementById('companion-name').value.trim();
+
+            if (nombre === "") {
+                alert("Por favor, introduce tu nombre completo.");
+                return;
+            }
+            if (llevaAcomp === "si" && nombreAcomp === "") {
+                alert("Por favor, introduce el nombre de tu acompañante.");
+                return;
+            }
+
+            // Guardamos datos para el pase
+            nombreGlobal = nombre;
+            acompGlobal = (llevaAcomp === "si") ? nombreAcomp : "";
+            totalPersonasGlobal = (llevaAcomp === "si") ? 2 : 1;
+
+            const statusText = document.getElementById('rsvp-status-text');
+            const formContainer = document.getElementById('rsvp-form-container');
+            const actionsDiv = document.getElementById('rsvp-actions');
+            
+            formContainer.style.display = "none";
+            actionsDiv.style.display = "none";
+            statusText.textContent = "Guardando confirmación y generando pase... Por favor, espera.";
+            enviandoFormulario = true;
+
+            // ===================================================
+            // CONFIGURACIÓN DE TU GOOGLE FORM CON 3 CAMPOS MÍNIMO
+            // ===================================================
+            const FORM_ID = "1FAIpQLSfXXXXX";          // Pon aquí el ID de tu Google Form
+            const ID_NOMBRE_INVITADO = "entry.11111";   // ID del campo de Nombre de Invitado
+            const ID_LLEVA_ACOMPANANTE = "entry.22222"; // ID del campo "¿Lleva Acompañante?" (Sí/No)
+            const ID_NOMBRE_ACOMPANANTE = "entry.33333";// ID del campo Nombre de Acompañante (si aplica)
+            
+            const formVirtual = document.createElement('form');
+            formVirtual.action = `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`;
+            formVirtual.method = 'POST';
+            formVirtual.target = 'hidden_iframe'; 
+
+            // Campo 1: Nombre de la persona principal
+            const inputNombre = document.createElement('input');
+            inputNombre.type = 'hidden';
+            inputNombre.name = ID_NOMBRE_INVITADO;
+            inputNombre.value = nombre;
+            formVirtual.appendChild(inputNombre);
+
+            // Campo 2: ¿Lleva acompañante?
+            const inputLleva = document.createElement('input');
+            inputLleva.type = 'hidden';
+            inputLleva.name = ID_LLEVA_ACOMPANANTE;
+            inputLleva.value = (llevaAcomp === "si") ? "Sí" : "No";
+            formVirtual.appendChild(inputLleva);
+
+            // Campo 3: Nombre del acompañante
+            const inputAcomp = document.createElement('input');
+            inputAcomp.type = 'hidden';
+            inputAcomp.name = ID_NOMBRE_ACOMPANANTE;
+            inputAcomp.value = (llevaAcomp === "si") ? nombreAcomp : "Ninguno";
+            formVirtual.appendChild(inputAcomp);
+
+            document.body.appendChild(formVirtual);
+            formVirtual.submit();
+            document.body.removeChild(formVirtual);
+        }
+
+        function iframeCargado() {
+            if (enviandoFormulario) {
+                const statusText = document.getElementById('rsvp-status-text');
+                statusText.textContent = "¡Asistencia registrada! Abriendo tus pases...";
+                
+                // Generamos un número de mesa aleatorio para simular la asignación automática (ej: de la 1 a la 25)
+                const numeroMesaAsignada = Math.floor(Math.random() * 25) + 1;
+
+                setTimeout(() => {
+                    closeRsvpModal();
+                    enviandoFormulario = false;
+                    // Llamamos a la función constructora del pase digital
+                    generarPaseDigital(nombreGlobal, acompGlobal, totalPersonasGlobal, numeroMesaAsignada);
+                }, 2000);
+            }
+        }
+
+        // FUNCIÓN NUEVA: Genera un pase elegante interactivo en una pestaña nueva listo para guardar/imprimir
+        function generarPaseDigital(invitado, acompanante, total, mesa) {
+            const paseWindow = window.open("", "_blank");
+            
+            let htmlPase = `
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <title>Pase Digital - Boda Yoseli y Bryan</title>
+                <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+                <style>
+                    body { font-family: 'Montserrat', sans-serif; background-color: #f5f2eb; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; text-align: center; color: #2c2c2c; }
+                    .ticket { background-color: white; border: 2px solid #b3966a; border-radius: 15px; padding: 30px; max-width: 400px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; box-sizing: border-box; }
+                    .ticket::before, .ticket::after { content: ''; position: absolute; width: 20px; height: 20px; background-color: #f5f2eb; border-radius: 50%; top: 50%; transform: translateY(-50%); border: 2px solid #b3966a; }
+                    .ticket::before { left: -12px; border-left: none; }
+                    .ticket::after { right: -12px; border-right: none; }
+                    .header-title { font-family: 'Alex Brush', cursive; font-size: 3rem; color: #1a1a1a; margin-bottom: 5px; }
+                    .subtitle { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: #777; margin-bottom: 25px; }
+                    .divider { border-top: 1px dashed #b3966a; margin: 20px 0; }
+                    .guest-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #b3966a; font-weight: 700; margin-bottom: 5px; }
+                    .guest-name { font-size: 1.1rem; font-weight: 600; color: #1a1a1a; margin-bottom: 15px; }
+                    .info-grid { display: flex; justify-content: space-around; margin: 20px 0; }
+                    .info-box { background-color: #faf8f5; border: 1px solid #e3ded4; border-radius: 8px; padding: 12px; width: 45%; }
+                    .info-box span { display: block; font-size: 1.6rem; font-weight: 700; color: #1a1a1a; }
+                    .info-box label { font-size: 0.65rem; text-transform: uppercase; color: #666; letter-spacing: 1px; }
+                    .footer-note { font-size: 0.75rem; color: #555; line-height: 1.4; font-style: italic; margin-top: 20px; }
+                    .btn-print { margin-top: 25px; padding: 10px 20px; background-color: #1a1a1a; color: white; border: none; border-radius: 20px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; font-weight: 600; }
+                    @media print { .btn-print { display: none; } body { background-color: white; } .ticket { box-shadow: none; } }
+                </style>
+            </head>
+            <body>
+                <div class="ticket">
+                    <div class="header-title">Yoseli & Bryan</div>
+                    <div class="subtitle">Pase de Acceso Exclusivo</div>
+                    
+                    <div class="divider"></div>
+                    
+                    <div class="guest-title">Invitado(s) Registrado(s)</div>
+                    <div class="guest-name">${invitado}</div>
+            `;
+
+            if (acompanante !== "") {
+                htmlPase += `<div class="guest-title" style="margin-top:10px;">Acompañante</div>
+                             <div class="guest-name">${acompanante}</div>`;
+            }
+
+            htmlPase += `
+                    <div class="divider"></div>
+                    
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <span>${total}</span>
+                            <label>Personas</label>
+                        </div>
+                        <div class="info-box">
+                            <span>#${mesa}</span>
+                            <label>Mesa Asignada</label>
+                        </div>
+                    </div>
+                    
+                    <p class="footer-note">Por favor presenta una captura de pantalla de este pase al llegar al evento. ¡Nos vemos el 28 de Agosto!</p>
+                    
+                    <button class="btn-print" onclick="window.print()">Imprimir o Guardar PDF</button>
+                </div>
+            </body>
+            </html>
+            `;
+            
+            paseWindow.document.write(htmlPase);
+            paseWindow.document.close();
         }
 
         const eventDate = new Date(2026, 7, 28, 19, 0, 0).getTime();
