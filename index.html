@@ -152,7 +152,7 @@
 
         .calendar-modal, .rsvp-modal {
             background-color: #f4f4f4;
-            width: 280px;
+            width: 310px;
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.15);
             overflow: hidden;
@@ -223,7 +223,7 @@
         .rsvp-modal {
             background-color: #ffffff;
             text-align: center;
-            padding: 25px 20px;
+            padding: 30px 20px;
         }
         
         .rsvp-modal h4 {
@@ -244,7 +244,7 @@
 
         .rsvp-buttons-container {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             justify-content: center;
         }
 
@@ -274,18 +274,13 @@
         .btn-modal-no {
             background-color: #f0f0f0;
             color: #555555;
-            border: 1px solid #f0f0f0;
+            border: 1px solid #e2e2e2;
         }
 
         .btn-modal-no:hover {
             background-color: #e2e2e2;
-            border-color: #e2e2e2;
         }
 
-        /* Fin de Estilos de los Modales */
-
-        .section-title { font-size: 1.2rem; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 25px; text-transform: uppercase; }
-        
         /* Sección de Fotos */
         .gallery-section { background-color: #f5f2eb; padding-top: 40px; padding-bottom: 40px; }
         .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; position: relative; z-index: 2; }
@@ -293,42 +288,42 @@
         .gallery-wide { grid-column: span 1; height: 180px; width: 100%; }
         .gallery-right { grid-column: span 1; height: 260px; margin-top: 40px; width: 100%; }
 
-        /* Estilos del nuevo Pase de Acceso Negro Fijo */
+        /* MODIFICACIÓN: Pase de Acceso Negro más Largo/Alto */
         .pase-negro-container {
             background: linear-gradient(135deg, #111111 0%, #1c1c1c 100%);
             border: 2px solid #b3966a;
             border-radius: 12px;
-            padding: 30px 20px;
-            margin: 20px 12px;
+            padding: 50px 24px; /* Aumentado de 30px a 50px para hacerlo más largo */
+            margin: 25px 15px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             color: #ffffff;
             position: relative;
         }
         .pase-negro-container::before {
-            content: ''; position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px;
+            content: ''; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px;
             border: 1px solid rgba(179, 150, 106, 0.2); border-radius: 8px; pointer-events: none;
         }
         .pase-titulo-oro {
-            font-size: 1.3rem; letter-spacing: 3px; color: #b3966a; text-transform: uppercase; margin-bottom: 5px;
+            font-size: 1.4rem; letter-spacing: 4px; color: #b3966a; text-transform: uppercase; margin-bottom: 8px;
         }
         .pase-subtitulo {
-            font-size: 0.75rem; color: #888888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;
+            font-size: 0.75rem; color: #888888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 35px;
         }
         .pase-nombre-cursiva {
-            font-family: 'Alex Brush', cursive; font-size: 2.8rem; color: #b3966a; font-weight: 400; line-height: 1.2; margin: 10px 0;
+            font-family: 'Alex Brush', cursive; font-size: 3rem; color: #b3966a; font-weight: 400; line-height: 1.2; margin: 15px 0 25px 0;
         }
         .pase-info-grid {
-            display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #2c2c2c; background: rgba(0,0,0,0.2); border-radius: 6px; padding: 12px; margin: 20px 0;
+            display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #2c2c2c; background: rgba(0,0,0,0.2); border-radius: 6px; padding: 16px; margin-top: 30px;
         }
         .pase-info-block:first-child { border-right: 1px solid #2c2c2c; }
         .pase-info-label { font-size: 0.65rem; text-transform: uppercase; color: #777; letter-spacing: 1px; }
-        .pase-info-value { font-size: 1.1rem; font-weight: 500; color: #ffffff; margin-top: 4px; }
-        .btn-pase-confirmar {
-            width: 100%; padding: 14px; background-color: #b3966a; color: #ffffff; border: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; cursor: pointer; border-radius: 4px; transition: all 0.3s;
+        .pase-info-value { font-size: 1.15rem; font-weight: 500; color: #ffffff; margin-top: 6px; }
+        
+        .msg-pase-exito { 
+            color: #4ade80; font-weight: 600; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 25px; display: none; 
         }
-        .btn-pase-confirmar:hover { background-color: #9c8055; }
-        .btn-pase-confirmar:disabled { background-color: #333333; color: #777777; cursor: not-allowed; }
-        .msg-pase-exito { color: #4ade80; font-weight: 600; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 10px; display: none; }
+
+        .section-title { font-size: 1.2rem; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 25px; text-transform: uppercase; }
 
         /* Cronograma */
         .cronograma-section { background-color: #ffffff; padding-top: 40px; }
@@ -346,7 +341,7 @@
             display: inline-block; padding: 14px 30px; background-color: #ffffff; color: #000000;
             text-decoration: none; border-radius: 0px; font-size: 0.75rem; text-transform: uppercase;
             letter-spacing: 2px; font-weight: 600; margin-top: 15px; border: 1px solid #ffffff; transition: all 0.3s;
-            width: 100%; max-width: 280px;
+            width: 100%; max-width: 280px; cursor: pointer;
         }
         .btn-action:hover { background-color: transparent; color: #ffffff; }
         
@@ -356,7 +351,6 @@
             color: #ffffff; 
             border: 1px solid #b3966a; 
             box-shadow: 0 4px 15px rgba(179, 150, 106, 0.3);
-            cursor: pointer;
         }
         .btn-rsvp:hover { 
             background-color: #ffffff; 
@@ -394,7 +388,6 @@
         </section>
 
         <section class="countdown-section">
-            
             <div class="typing-wrapper">
                 <div class="typing-container" id="animated-date">Viernes 28 de Agosto de 2026</div>
             </div>
@@ -428,18 +421,19 @@
                 </div>
                 <button class="modal-close-btn" onclick="closeCalendarModal()">
                     <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-                    Close
+                    Cerrar
                 </button>
             </div>
         </div>
 
+        <!-- MODAL RSVP REESTRUCTURADO: Pregunta Sí o No -->
         <div id="rsvpModalOverlay" class="modal-overlay" onclick="closeRsvpModal()">
             <div class="rsvp-modal" onclick="event.stopPropagation()">
-                <h4>¿Estás seguro en asistir a la boda?</h4>
+                <h4 id="rsvp-modal-title">¿Estás seguro en asistir a la boda?</h4>
                 <p id="rsvp-status-text">Nos haría muy felices contar con tu presencia en este día tan especial.</p>
                 <div class="rsvp-buttons-container" id="rsvp-actions">
-                    <button class="btn-modal-rsvp btn-modal-yes" onclick="confirmAttendance()">Sí</button>
-                    <button class="btn-modal-rsvp btn-modal-no" onclick="closeRsvpModal()">No</button>
+                    <button class="btn-modal-rsvp btn-modal-yes" onclick="submitRSVP('Sí')">Sí</button>
+                    <button class="btn-modal-rsvp btn-modal-no" onclick="submitRSVP('No')">No</button>
                 </div>
             </div>
         </div>
@@ -454,13 +448,12 @@
             </div>
         </section>
 
-        <!-- ================= SECCIÓN DEL PASE NEGRO INTEGRADO (DEBAJO DE FOTOS) ================= -->
+        <!-- ================= SECCIÓN PASE NEGRO MÁS LARGO Y SIN BOTÓN INTERNO ================= -->
         <div class="pase-negro-container">
             <h3 class="pase-titulo-oro">Pase de Acceso</h3>
             <p class="pase-subtitulo">Pase personal para el evento</p>
             
             <div style="font-size: 0.65rem; text-transform: uppercase; color: #666; letter-spacing: 1px; margin-bottom: 2px;">Invitado(s):</div>
-            <!-- El nombre exacto de la URL se dibuja aquí en letra cursiva elegante -->
             <div id="pase-nombres" class="pase-nombre-cursiva">Cargando...</div>
 
             <div class="pase-info-grid">
@@ -474,16 +467,12 @@
                 </div>
             </div>
 
-            <div>
-                <button id="btn-pase-confirmar" onclick="confirmAttendance()" class="btn-pase-confirmar">
-                    Confirmar Asistencia Directa
-                </button>
-                <div id="msg-pase-exito" class="msg-pase-exito">
-                    ✓ ¡Asistencia Confirmada!
-                </div>
+            <!-- Aquí se encenderá el aviso verde al confirmar desde abajo -->
+            <div id="msg-pase-exito" class="msg-pase-exito">
+                ✓ ¡Asistencia Confirmada!
             </div>
         </div>
-        <!-- ================= FIN DEL PASE NEGRO INTEGRADO ================= -->
+        <!-- ================= FIN DEL PASE NEGRO ================= -->
 
         <section class="cronograma-section">
             <h3 class="section-title" style="text-align: center; font-size: 1.4rem; font-weight: 400; letter-spacing: 4px;">CRONOGRAMA DEL EVENTO</h3>
@@ -505,11 +494,12 @@
             <a href="http://maps.google.com/?q=C.+Espa%C3%B1a+8451,+Ju%C3%A1rez,+22040+Tijuana,+B.C." target="_blank" class="btn-action">Ver ubicación en mapa</a>
         </section>
 
+        <!-- SECCIÓN RSVP ABAJO: El botón principal de interacción -->
         <section class="dark-section" style="border-top: 1px solid #222;">
             <h3 class="section-title">RSVP</h3>
             <p style="font-size: 0.75rem; color: #b3966a; letter-spacing: 2px;">CONFIRMACIÓN DE ASISTENCIA</p>
             <p style="font-size: 0.8rem; margin: 20px 0; color: #d5d5d5;">PARA NOSOTROS ES MUY IMPORTANTE COMPARTIR ESTE DÍA CONTIGO. POR FAVOR AYÚDANOS A CONFIRMAR TU ASISTENCIA ANTES DEL DÍA 10 DE AGOSTO DE 2026.</p>
-            <button onclick="openRsvpModal()" class="btn-action btn-rsvp">Por favor de confirmar aquí</button>
+            <button id="btn-principal-rsvp" onclick="openRsvpModal()" class="btn-action btn-rsvp">Por favor de confirmar aquí</button>
         </section>
 
         <section style="background-color: #f5f2eb; padding-bottom: 50px;">
@@ -530,14 +520,14 @@
         const music = document.getElementById('bg-music');
         const playPauseBtn = document.getElementById('play-pause-btn');
         let enviandoFormulario = false;
+        let opcionSeleccionada = "";
 
-        // --- LÓGICA PARA LEER LA URL E INYECTAR LOS DATOS EN EL PASE NEGRO ---
+        // --- MANEJO DE PARÁMETROS URL ---
         const urlParams = new URLSearchParams(window.location.search);
         const nombresInvitados = urlParams.get('invitados') || 'Invitado Especial';
         const mesaAsignada = urlParams.get('mesa') || 'Por asignar';
         const totalPases = urlParams.get('pases') || '1';
 
-        // Inyectamos de inmediato los datos al cargar la página
         document.getElementById('pase-nombres').innerText = nombresInvitados;
         document.getElementById('pase-mesa').innerText = mesaAsignada;
         document.getElementById('pase-boletos').innerText = totalPases === '1' ? '1 pase' : `${totalPases} pases`;
@@ -549,7 +539,7 @@
                 document.getElementById('music-player').style.display = 'flex';
                 document.getElementById('animated-date').classList.add('start-typing');
             }, 1000);
-            music.play().catch(e => console.log("Audio diferido por políticas del navegador"));
+            music.play().catch(e => console.log("Audio diferido automáticamente"));
         }
 
         function toggleMusic() {
@@ -557,83 +547,80 @@
             else { music.pause(); playPauseBtn.textContent = '▶'; }
         }
 
-        function openCalendarModal() {
-            document.getElementById('calendarModalOverlay').classList.add('show');
-        }
-
-        function closeCalendarModal() {
-            document.getElementById('calendarModalOverlay').classList.remove('show');
-        }
+        function openCalendarModal() { document.getElementById('calendarModalOverlay').classList.add('show'); }
+        function closeCalendarModal() { document.getElementById('calendarModalOverlay').classList.remove('show'); }
 
         function openRsvpModal() {
+            document.getElementById('rsvp-modal-title').textContent = "¿Estás seguro en asistir a la boda?";
             document.getElementById('rsvp-status-text').textContent = "Nos haría muy felices contar con tu presencia en este día tan especial.";
             document.getElementById('rsvp-actions').style.display = "flex";
             document.getElementById('rsvpModalOverlay').classList.add('show');
         }
 
-        function closeRsvpModal() {
-            document.getElementById('rsvpModalOverlay').classList.remove('show');
-        }
+        function closeRsvpModal() { document.getElementById('rsvpModalOverlay').classList.remove('show'); }
 
-        function confirmAttendance() {
+        // ENVÍO DE RESPUESTA CONDICIONAL (SÍ o NO)
+        function submitRSVP(opcion) {
+            opcionSeleccionada = opcion;
             const statusText = document.getElementById('rsvp-status-text');
             const actionsDiv = document.getElementById('rsvp-actions');
             
-            // Cambiar textos y bloquear botones tanto del modal como del pase negro
-            statusText.textContent = "Confirmando asistencia de forma automática... Por favor, espera.";
+            statusText.textContent = "Procesando tu respuesta... Por favor, espera.";
             actionsDiv.style.display = "none";
-            
-            const btnPase = document.getElementById('btn-pase-confirmar');
-            btnPase.disabled = true;
-            btnPase.innerText = "Registrando...";
-            
             enviandoFormulario = true;
 
             // ==========================================
-            // CONFIGURACIÓN DE TU GOOGLE FORM
+            // CONFIGURACIÓN DE GOOGLE FORM
             // ==========================================
-            const FORM_ID = "1FAIpQLSfXXXXX";   // Pon aquí tu ID real del formulario
-            const ENTRY_ID = "entry.123456789"; // Pon aquí tu entry ID real de la opción
-            const VALOR_RESPUESTA = "Sí";       // El texto exacto de la respuesta afirmativa
+            const FORM_ID = "1FAIpQLSfXXXXX";   // Tu ID real de Formulario aquí
+            const ENTRY_ID = "entry.123456789"; // Tu Entry ID real aquí
             
-            // Creamos un formulario virtual e invisible en el documento
             const formVirtual = document.createElement('form');
             formVirtual.action = `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`;
             formVirtual.method = 'POST';
-            formVirtual.target = 'hidden_iframe'; // Dirige el envío al iframe invisible
+            formVirtual.target = 'hidden_iframe';
 
             const inputVirtual = document.createElement('input');
             inputVirtual.type = 'hidden';
             inputVirtual.name = ENTRY_ID;
-            inputVirtual.value = VALOR_RESPUESTA;
+            inputVirtual.value = opcionSeleccionada; // Envía "Sí" o "No" dinámicamente
 
             formVirtual.appendChild(inputVirtual);
             document.body.appendChild(formVirtual);
-            
-            // Enviamos los datos silenciosamente a través del iframe
             formVirtual.submit();
-            
-            // Quitamos el formulario virtual creado para mantener limpio el HTML
             document.body.removeChild(formVirtual);
         }
 
-        // Esta función se ejecuta automáticamente cuando el iframe recibe la respuesta de Google
         function iframeCargado() {
             if (enviandoFormulario) {
                 const statusText = document.getElementById('rsvp-status-text');
-                statusText.textContent = "¡Asistencia confirmada con éxito! Muchas gracias.";
+                const btnPrincipal = document.getElementById('btn-principal-rsvp');
                 
-                // Modificar el botón del pase negro permanentemente a éxito
-                document.getElementById('btn-pase-confirmar').style.display = 'none';
-                document.getElementById('msg-pase-exito').style.display = 'block';
+                if (opcionSeleccionada === 'Sí') {
+                    statusText.textContent = "¡Asistencia confirmada! Muchas gracias.";
+                    // Se activa el aviso verde permanente en el Pase Negro
+                    document.getElementById('msg-pase-exito').style.display = 'block';
+                    btnPrincipal.innerText = "Asistencia Confirmada ✓";
+                    btnPrincipal.disabled = true;
+                    btnPrincipal.style.backgroundColor = "#4ade80";
+                    btnPrincipal.style.borderColor = "#4ade80";
+                    btnPrincipal.style.color = "#ffffff";
+                } else {
+                    statusText.textContent = "Entendido. Gracias por avisarnos.";
+                    btnPrincipal.innerText = "No asistirá";
+                    btnPrincipal.disabled = true;
+                    btnPrincipal.style.backgroundColor = "#777777";
+                    btnPrincipal.style.borderColor = "#777777";
+                }
                 
                 setTimeout(() => {
                     closeRsvpModal();
                     enviandoFormulario = false;
-                }, 3000);
+                }, 2500);
             }
         }
 
+        // Cuenta regresiva
         const eventDate = new Date(2026, 7, 28, 19, 0, 0).getTime();
         setInterval(function() {
             const now = new Date().getTime(); const distance = eventDate - now;
