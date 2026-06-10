@@ -198,7 +198,7 @@
             border: 2px solid #b3966a;
             border-radius: 12px;
             padding: 55px 24px 45px 24px;
-            margin: 25px 15px 10px 15px; /* Reducido margen inferior para el texto de abajo */
+            margin: 25px 15px 10px 15px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             color: #ffffff;
             position: relative;
@@ -228,33 +228,45 @@
         .btn-confirmar-oro:hover { background-color: #9c8055; }
         .msg-pase-exito { color: #4ade80; font-weight: 600; font-size: 0.95rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 25px; display: none; }
 
-        /* Estilos del texto RSVP solicitado abajo del pase */
+        /* NUEVO ESTILO EN NEGRO Y ORO PARA EL CONTENEDOR RSVP INFERIOR */
         .pase-rsvp-footer-text {
-            padding: 10px 25px 30px 25px;
-            max-width: 380px;
-            margin: 0 auto;
+            background: linear-gradient(135deg, #111111 0%, #1c1c1c 100%);
+            border: 2px solid #b3966a;
+            border-radius: 12px;
+            padding: 35px 24px;
+            margin: 15px 15px 40px 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            color: #ffffff;
+            position: relative;
+        }
+        .pase-rsvp-footer-text::before {
+            content: ''; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid rgba(179, 150, 106, 0.12); border-radius: 8px; pointer-events: none;
         }
         .pase-rsvp-footer-text h4 {
-            font-size: 1.1rem;
-            letter-spacing: 4px;
-            color: #1a1a1a;
-            margin-bottom: 5px;
+            font-size: 1.3rem;
+            letter-spacing: 5px;
+            color: #b3966a;
+            margin-bottom: 4px;
             text-transform: uppercase;
             font-weight: 500;
         }
         .pase-rsvp-footer-text .sub {
             font-size: 0.7rem;
-            color: #b3966a;
+            color: #ffffff;
             letter-spacing: 2px;
             text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 12px;
+            font-weight: 500;
+            margin-bottom: 20px;
             display: block;
+            opacity: 0.85;
         }
         .pase-rsvp-footer-text p {
             font-size: 0.8rem;
-            color: #555555;
-            line-height: 1.6;
+            color: #e0e0e0;
+            line-height: 1.7;
+            letter-spacing: 0.5px;
+            padding: 0 5px;
         }
 
         .section-title { font-size: 1.2rem; letter-spacing: 4px; color: #1a1a1a; margin-bottom: 35px; text-transform: uppercase; font-weight: 400; }
@@ -461,7 +473,7 @@
             </div>
         </div>
 
-        <!-- TEXTO RSVP ABAJO DEL PASE DE LA BODA -->
+        <!-- TEXTO RSVP ABAJO DEL PASE ACTUALIZADO A FONDO NEGRO -->
         <div class="pase-rsvp-footer-text">
             <h4>RSVP</h4>
             <span class="sub">CONFIRMACIÓN DE ASISTENCIA</span>
@@ -523,7 +535,7 @@
             </div>
         </section>
 
-        <!-- SECCIÓN CÓDIGO DE VESTIMENTA MEJORADA (image_75321e.png) -->
+        <!-- SECCIÓN CÓDIGO DE VESTIMENTA MEJORADA -->
         <section class="vestimenta-section">
             <div class="v-title-cursive">Código de</div>
             <div class="v-title-sub">VESTIMENTA</div>
