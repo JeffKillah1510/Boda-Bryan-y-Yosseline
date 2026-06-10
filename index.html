@@ -152,7 +152,7 @@
 
         .calendar-modal, .rsvp-modal {
             background-color: #f4f4f4;
-            width: 320px; /* Un poco más ancho para albergar el formulario */
+            width: 280px;
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.15);
             overflow: hidden;
@@ -238,44 +238,14 @@
         .rsvp-modal p {
             font-size: 0.85rem;
             color: #666666;
-            margin-bottom: 15px;
+            margin-bottom: 25px;
             line-height: 1.5;
-        }
-
-        /* Campos del Formulario RSVP */
-        .rsvp-form-group {
-            text-align: left;
-            margin-bottom: 12px;
-        }
-        .rsvp-form-group label {
-            display: block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            font-weight: 600;
-            color: #444;
-            margin-bottom: 4px;
-            letter-spacing: 1px;
-        }
-        .rsvp-form-group input, .rsvp-form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #e3ded4;
-            border-radius: 6px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.85rem;
-            color: #2c2c2c;
-            background-color: #faf8f5;
-        }
-        .rsvp-form-group input:focus, .rsvp-form-group select:focus {
-            outline: none;
-            border-color: #b3966a;
         }
 
         .rsvp-buttons-container {
             display: flex;
             gap: 10px;
             justify-content: center;
-            margin-top: 20px;
         }
 
         .btn-modal-rsvp {
@@ -288,7 +258,6 @@
             cursor: pointer;
             transition: all 0.2s ease;
             flex: 1;
-            border: none;
         }
 
         .btn-modal-yes {
@@ -323,6 +292,43 @@
         .gallery-item { width: 100%; height: 150px; object-fit: cover; border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .gallery-wide { grid-column: span 1; height: 180px; width: 100%; }
         .gallery-right { grid-column: span 1; height: 260px; margin-top: 40px; width: 100%; }
+
+        /* Estilos del nuevo Pase de Acceso Negro Fijo */
+        .pase-negro-container {
+            background: linear-gradient(135deg, #111111 0%, #1c1c1c 100%);
+            border: 2px solid #b3966a;
+            border-radius: 12px;
+            padding: 30px 20px;
+            margin: 20px 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            color: #ffffff;
+            position: relative;
+        }
+        .pase-negro-container::before {
+            content: ''; position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px;
+            border: 1px solid rgba(179, 150, 106, 0.2); border-radius: 8px; pointer-events: none;
+        }
+        .pase-titulo-oro {
+            font-size: 1.3rem; letter-spacing: 3px; color: #b3966a; text-transform: uppercase; margin-bottom: 5px;
+        }
+        .pase-subtitulo {
+            font-size: 0.75rem; color: #888888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;
+        }
+        .pase-nombre-cursiva {
+            font-family: 'Alex Brush', cursive; font-size: 2.8rem; color: #b3966a; font-weight: 400; line-height: 1.2; margin: 10px 0;
+        }
+        .pase-info-grid {
+            display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #2c2c2c; background: rgba(0,0,0,0.2); border-radius: 6px; padding: 12px; margin: 20px 0;
+        }
+        .pase-info-block:first-child { border-right: 1px solid #2c2c2c; }
+        .pase-info-label { font-size: 0.65rem; text-transform: uppercase; color: #777; letter-spacing: 1px; }
+        .pase-info-value { font-size: 1.1rem; font-weight: 500; color: #ffffff; margin-top: 4px; }
+        .btn-pase-confirmar {
+            width: 100%; padding: 14px; background-color: #b3966a; color: #ffffff; border: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; cursor: pointer; border-radius: 4px; transition: all 0.3s;
+        }
+        .btn-pase-confirmar:hover { background-color: #9c8055; }
+        .btn-pase-confirmar:disabled { background-color: #333333; color: #777777; cursor: not-allowed; }
+        .msg-pase-exito { color: #4ade80; font-weight: 600; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 10px; display: none; }
 
         /* Cronograma */
         .cronograma-section { background-color: #ffffff; padding-top: 40px; }
@@ -388,6 +394,7 @@
         </section>
 
         <section class="countdown-section">
+            
             <div class="typing-wrapper">
                 <div class="typing-container" id="animated-date">Viernes 28 de Agosto de 2026</div>
             </div>
@@ -428,32 +435,11 @@
 
         <div id="rsvpModalOverlay" class="modal-overlay" onclick="closeRsvpModal()">
             <div class="rsvp-modal" onclick="event.stopPropagation()">
-                <h4>Confirmar Asistencia</h4>
-                <p id="rsvp-status-text">Por favor introduce tus datos para registrarte y generar tus pases.</p>
-                
-                <div id="rsvp-form-container">
-                    <div class="rsvp-form-group">
-                        <label for="guest-name">Nombre Completo:</label>
-                        <input type="text" id="guest-name" placeholder="Ej. Juan Pérez">
-                    </div>
-
-                    <div class="rsvp-form-group">
-                        <label for="has-companion">¿Llevas acompañante?</label>
-                        <select id="has-companion" onchange="toggleCompanionField()">
-                            <option value="no">No, asistiré solo/a</option>
-                            <option value="si">Sí, asistiré con alguien</option>
-                        </select>
-                    </div>
-
-                    <div class="rsvp-form-group" id="companion-wrapper" style="display: none;">
-                        <label for="companion-name">Nombre del Acompañante:</label>
-                        <input type="text" id="companion-name" placeholder="Ej. María López">
-                    </div>
-                </div>
-
+                <h4>¿Estás seguro en asistir a la boda?</h4>
+                <p id="rsvp-status-text">Nos haría muy felices contar con tu presencia en este día tan especial.</p>
                 <div class="rsvp-buttons-container" id="rsvp-actions">
-                    <button class="btn-modal-rsvp btn-modal-yes" onclick="confirmAttendance()">Confirmar y Ver Pase</button>
-                    <button class="btn-modal-rsvp btn-modal-no" onclick="closeRsvpModal()">Cancelar</button>
+                    <button class="btn-modal-rsvp btn-modal-yes" onclick="confirmAttendance()">Sí</button>
+                    <button class="btn-modal-rsvp btn-modal-no" onclick="closeRsvpModal()">No</button>
                 </div>
             </div>
         </div>
@@ -468,8 +454,40 @@
             </div>
         </section>
 
+        <!-- ================= SECCIÓN DEL PASE NEGRO INTEGRADO (DEBAJO DE FOTOS) ================= -->
+        <div class="pase-negro-container">
+            <h3 class="pase-titulo-oro">Pase de Acceso</h3>
+            <p class="pase-subtitulo">Pase personal para el evento</p>
+            
+            <div style="font-size: 0.65rem; text-transform: uppercase; color: #666; letter-spacing: 1px; margin-bottom: 2px;">Invitado(s):</div>
+            <!-- El nombre exacto de la URL se dibuja aquí en letra cursiva elegante -->
+            <div id="pase-nombres" class="pase-nombre-cursiva">Cargando...</div>
+
+            <div class="pase-info-grid">
+                <div class="pase-info-block">
+                    <div class="pase-info-label">Mesa</div>
+                    <div id="pase-mesa" class="pase-info-value">--</div>
+                </div>
+                <div class="pase-info-block">
+                    <div class="pase-info-label">Pases asignados</div>
+                    <div id="pase-boletos" class="pase-info-value">--</div>
+                </div>
+            </div>
+
+            <div>
+                <button id="btn-pase-confirmar" onclick="confirmAttendance()" class="btn-pase-confirmar">
+                    Confirmar Asistencia Directa
+                </button>
+                <div id="msg-pase-exito" class="msg-pase-exito">
+                    ✓ ¡Asistencia Confirmada!
+                </div>
+            </div>
+        </div>
+        <!-- ================= FIN DEL PASE NEGRO INTEGRADO ================= -->
+
         <section class="cronograma-section">
             <h3 class="section-title" style="text-align: center; font-size: 1.4rem; font-weight: 400; letter-spacing: 4px;">CRONOGRAMA DEL EVENTO</h3>
+            
             <div class="timeline">
                 <div class="timeline-item"><span class="timeline-time">7:00 PM</span><span class="timeline-desc">Recepción y Bienvenida</span></div>
                 <div class="timeline-item"><span class="timeline-time">8:00 PM</span><span class="timeline-desc">Cena Formal</span></div>
@@ -513,10 +531,16 @@
         const playPauseBtn = document.getElementById('play-pause-btn');
         let enviandoFormulario = false;
 
-        // Variables globales para generar el pase al final
-        let nombreGlobal = "";
-        let acompGlobal = "";
-        let totalPersonasGlobal = 1;
+        // --- LÓGICA PARA LEER LA URL E INYECTAR LOS DATOS EN EL PASE NEGRO ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const nombresInvitados = urlParams.get('invitados') || 'Invitado Especial';
+        const mesaAsignada = urlParams.get('mesa') || 'Por asignar';
+        const totalPases = urlParams.get('pases') || '1';
+
+        // Inyectamos de inmediato los datos al cargar la página
+        document.getElementById('pase-nombres').innerText = nombresInvitados;
+        document.getElementById('pase-mesa').innerText = mesaAsignada;
+        document.getElementById('pase-boletos').innerText = totalPases === '1' ? '1 pase' : `${totalPases} pases`;
 
         function startInvitation() {
             document.getElementById('welcome-screen').style.opacity = '0';
@@ -542,14 +566,8 @@
         }
 
         function openRsvpModal() {
-            document.getElementById('rsvp-status-text').style.display = "block";
-            document.getElementById('rsvp-status-text').textContent = "Por favor introduce tus datos para registrarte y generar tus pases.";
-            document.getElementById('rsvp-form-container').style.display = "block";
+            document.getElementById('rsvp-status-text').textContent = "Nos haría muy felices contar con tu presencia en este día tan especial.";
             document.getElementById('rsvp-actions').style.display = "flex";
-            document.getElementById('guest-name').value = "";
-            document.getElementById('companion-name').value = "";
-            document.getElementById('has-companion').value = "no";
-            document.getElementById('companion-wrapper').style.style = "none";
             document.getElementById('rsvpModalOverlay').classList.add('show');
         }
 
@@ -557,167 +575,63 @@
             document.getElementById('rsvpModalOverlay').classList.remove('show');
         }
 
-        function toggleCompanionField() {
-            const hasCompanion = document.getElementById('has-companion').value;
-            const wrapper = document.getElementById('companion-wrapper');
-            wrapper.style.display = (hasCompanion === 'si') ? 'block' : 'none';
-        }
-
         function confirmAttendance() {
-            const nombre = document.getElementById('guest-name').value.trim();
-            const llevaAcomp = document.getElementById('has-companion').value;
-            const nombreAcomp = document.getElementById('companion-name').value.trim();
-
-            if (nombre === "") {
-                alert("Por favor, introduce tu nombre completo.");
-                return;
-            }
-            if (llevaAcomp === "si" && nombreAcomp === "") {
-                alert("Por favor, introduce el nombre de tu acompañante.");
-                return;
-            }
-
-            // Guardamos datos para el pase
-            nombreGlobal = nombre;
-            acompGlobal = (llevaAcomp === "si") ? nombreAcomp : "";
-            totalPersonasGlobal = (llevaAcomp === "si") ? 2 : 1;
-
             const statusText = document.getElementById('rsvp-status-text');
-            const formContainer = document.getElementById('rsvp-form-container');
             const actionsDiv = document.getElementById('rsvp-actions');
             
-            formContainer.style.display = "none";
+            // Cambiar textos y bloquear botones tanto del modal como del pase negro
+            statusText.textContent = "Confirmando asistencia de forma automática... Por favor, espera.";
             actionsDiv.style.display = "none";
-            statusText.textContent = "Guardando confirmación y generando pase... Por favor, espera.";
+            
+            const btnPase = document.getElementById('btn-pase-confirmar');
+            btnPase.disabled = true;
+            btnPase.innerText = "Registrando...";
+            
             enviandoFormulario = true;
 
-            // ===================================================
-            // CONFIGURACIÓN DE TU GOOGLE FORM CON 3 CAMPOS MÍNIMO
-            // ===================================================
-            const FORM_ID = "1FAIpQLSfXXXXX";          // Pon aquí el ID de tu Google Form
-            const ID_NOMBRE_INVITADO = "entry.11111";   // ID del campo de Nombre de Invitado
-            const ID_LLEVA_ACOMPANANTE = "entry.22222"; // ID del campo "¿Lleva Acompañante?" (Sí/No)
-            const ID_NOMBRE_ACOMPANANTE = "entry.33333";// ID del campo Nombre de Acompañante (si aplica)
+            // ==========================================
+            // CONFIGURACIÓN DE TU GOOGLE FORM
+            // ==========================================
+            const FORM_ID = "1FAIpQLSfXXXXX";   // Pon aquí tu ID real del formulario
+            const ENTRY_ID = "entry.123456789"; // Pon aquí tu entry ID real de la opción
+            const VALOR_RESPUESTA = "Sí";       // El texto exacto de la respuesta afirmativa
             
+            // Creamos un formulario virtual e invisible en el documento
             const formVirtual = document.createElement('form');
             formVirtual.action = `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`;
             formVirtual.method = 'POST';
-            formVirtual.target = 'hidden_iframe'; 
+            formVirtual.target = 'hidden_iframe'; // Dirige el envío al iframe invisible
 
-            // Campo 1: Nombre de la persona principal
-            const inputNombre = document.createElement('input');
-            inputNombre.type = 'hidden';
-            inputNombre.name = ID_NOMBRE_INVITADO;
-            inputNombre.value = nombre;
-            formVirtual.appendChild(inputNombre);
+            const inputVirtual = document.createElement('input');
+            inputVirtual.type = 'hidden';
+            inputVirtual.name = ENTRY_ID;
+            inputVirtual.value = VALOR_RESPUESTA;
 
-            // Campo 2: ¿Lleva acompañante?
-            const inputLleva = document.createElement('input');
-            inputLleva.type = 'hidden';
-            inputLleva.name = ID_LLEVA_ACOMPANANTE;
-            inputLleva.value = (llevaAcomp === "si") ? "Sí" : "No";
-            formVirtual.appendChild(inputLleva);
-
-            // Campo 3: Nombre del acompañante
-            const inputAcomp = document.createElement('input');
-            inputAcomp.type = 'hidden';
-            inputAcomp.name = ID_NOMBRE_ACOMPANANTE;
-            inputAcomp.value = (llevaAcomp === "si") ? nombreAcomp : "Ninguno";
-            formVirtual.appendChild(inputAcomp);
-
+            formVirtual.appendChild(inputVirtual);
             document.body.appendChild(formVirtual);
+            
+            // Enviamos los datos silenciosamente a través del iframe
             formVirtual.submit();
+            
+            // Quitamos el formulario virtual creado para mantener limpio el HTML
             document.body.removeChild(formVirtual);
         }
 
+        // Esta función se ejecuta automáticamente cuando el iframe recibe la respuesta de Google
         function iframeCargado() {
             if (enviandoFormulario) {
                 const statusText = document.getElementById('rsvp-status-text');
-                statusText.textContent = "¡Asistencia registrada! Abriendo tus pases...";
+                statusText.textContent = "¡Asistencia confirmada con éxito! Muchas gracias.";
                 
-                // Generamos un número de mesa aleatorio para simular la asignación automática (ej: de la 1 a la 25)
-                const numeroMesaAsignada = Math.floor(Math.random() * 25) + 1;
-
+                // Modificar el botón del pase negro permanentemente a éxito
+                document.getElementById('btn-pase-confirmar').style.display = 'none';
+                document.getElementById('msg-pase-exito').style.display = 'block';
+                
                 setTimeout(() => {
                     closeRsvpModal();
                     enviandoFormulario = false;
-                    // Llamamos a la función constructora del pase digital
-                    generarPaseDigital(nombreGlobal, acompGlobal, totalPersonasGlobal, numeroMesaAsignada);
-                }, 2000);
+                }, 3000);
             }
-        }
-
-        // FUNCIÓN NUEVA: Genera un pase elegante interactivo en una pestaña nueva listo para guardar/imprimir
-        function generarPaseDigital(invitado, acompanante, total, mesa) {
-            const paseWindow = window.open("", "_blank");
-            
-            let htmlPase = `
-            <!DOCTYPE html>
-            <html lang="es">
-            <head>
-                <meta charset="UTF-8">
-                <title>Pase Digital - Boda Yoseli y Bryan</title>
-                <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-                <style>
-                    body { font-family: 'Montserrat', sans-serif; background-color: #f5f2eb; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; text-align: center; color: #2c2c2c; }
-                    .ticket { background-color: white; border: 2px solid #b3966a; border-radius: 15px; padding: 30px; max-width: 400px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; box-sizing: border-box; }
-                    .ticket::before, .ticket::after { content: ''; position: absolute; width: 20px; height: 20px; background-color: #f5f2eb; border-radius: 50%; top: 50%; transform: translateY(-50%); border: 2px solid #b3966a; }
-                    .ticket::before { left: -12px; border-left: none; }
-                    .ticket::after { right: -12px; border-right: none; }
-                    .header-title { font-family: 'Alex Brush', cursive; font-size: 3rem; color: #1a1a1a; margin-bottom: 5px; }
-                    .subtitle { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: #777; margin-bottom: 25px; }
-                    .divider { border-top: 1px dashed #b3966a; margin: 20px 0; }
-                    .guest-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #b3966a; font-weight: 700; margin-bottom: 5px; }
-                    .guest-name { font-size: 1.1rem; font-weight: 600; color: #1a1a1a; margin-bottom: 15px; }
-                    .info-grid { display: flex; justify-content: space-around; margin: 20px 0; }
-                    .info-box { background-color: #faf8f5; border: 1px solid #e3ded4; border-radius: 8px; padding: 12px; width: 45%; }
-                    .info-box span { display: block; font-size: 1.6rem; font-weight: 700; color: #1a1a1a; }
-                    .info-box label { font-size: 0.65rem; text-transform: uppercase; color: #666; letter-spacing: 1px; }
-                    .footer-note { font-size: 0.75rem; color: #555; line-height: 1.4; font-style: italic; margin-top: 20px; }
-                    .btn-print { margin-top: 25px; padding: 10px 20px; background-color: #1a1a1a; color: white; border: none; border-radius: 20px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; font-weight: 600; }
-                    @media print { .btn-print { display: none; } body { background-color: white; } .ticket { box-shadow: none; } }
-                </style>
-            </head>
-            <body>
-                <div class="ticket">
-                    <div class="header-title">Yoseli & Bryan</div>
-                    <div class="subtitle">Pase de Acceso Exclusivo</div>
-                    
-                    <div class="divider"></div>
-                    
-                    <div class="guest-title">Invitado(s) Registrado(s)</div>
-                    <div class="guest-name">${invitado}</div>
-            `;
-
-            if (acompanante !== "") {
-                htmlPase += `<div class="guest-title" style="margin-top:10px;">Acompañante</div>
-                             <div class="guest-name">${acompanante}</div>`;
-            }
-
-            htmlPase += `
-                    <div class="divider"></div>
-                    
-                    <div class="info-grid">
-                        <div class="info-box">
-                            <span>${total}</span>
-                            <label>Personas</label>
-                        </div>
-                        <div class="info-box">
-                            <span>#${mesa}</span>
-                            <label>Mesa Asignada</label>
-                        </div>
-                    </div>
-                    
-                    <p class="footer-note">Por favor presenta una captura de pantalla de este pase al llegar al evento. ¡Nos vemos el 28 de Agosto!</p>
-                    
-                    <button class="btn-print" onclick="window.print()">Imprimir o Guardar PDF</button>
-                </div>
-            </body>
-            </html>
-            `;
-            
-            paseWindow.document.write(htmlPase);
-            paseWindow.document.close();
         }
 
         const eventDate = new Date(2026, 7, 28, 19, 0, 0).getTime();
