@@ -230,7 +230,7 @@
 
         .section-title { font-size: 1.2rem; letter-spacing: 4px; color: #1a1a1a; margin-bottom: 35px; text-transform: uppercase; font-weight: 400; }
 
-        /* ================= NUEVO CRONOGRAMA ESTILO IMAGE_75AEDD.PNG ================= */
+        /* Cronograma estilo image_75aedd.png */
         .cronograma-section { background-color: #ffffff; padding: 50px 20px; }
         
         .new-timeline {
@@ -245,12 +245,12 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px 5px;
-            border-bottom: 1.5px solid #3b3b5c; /* Línea divisoria oscura sutil */
+            border-bottom: 1.5px solid #3b3b5c; 
             text-align: left;
         }
 
         .new-timeline-item:first-child {
-            border-top: 1.5px solid #3b3b5c; /* Línea superior inicial */
+            border-top: 1.5px solid #3b3b5c; 
         }
 
         .new-time {
@@ -272,7 +272,6 @@
             padding-left: 10px;
         }
 
-        /* Marcadores de posición para los íconos limpios */
         .new-icon {
             width: 32px;
             height: 32px;
@@ -288,7 +287,70 @@
             object-fit: contain;
             opacity: 0.8;
         }
-        /* ============================================================================= */
+
+        /* ================= SECCIÓN CÓDIGO DE VESTIMENTA ================= */
+        .vestimenta-section {
+            background-color: #fbf9f6; /* Cambio de color sutil para simular otra hoja */
+            padding: 55px 25px;
+            border-top: 1px solid #eae5dc;
+        }
+        
+        .vestimenta-tipo {
+            font-size: 1.3rem;
+            color: #b3966a;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-bottom: 35px;
+        }
+        
+        .vestimenta-grid {
+            max-width: 380px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .vestimenta-bloque {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e8e3d9;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+        
+        .vestimenta-sub {
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .vestimenta-detalles {
+            font-size: 0.82rem;
+            color: #555555;
+            line-height: 1.6;
+        }
+        
+        .vestimenta-agradecimiento {
+            font-size: 0.8rem;
+            font-style: italic;
+            color: #888888;
+            margin-top: 35px;
+            line-height: 1.5;
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* ================================================================ */
 
         /* Secciones Oscuras */
         .dark-section { background-color: #000000; color: #ffffff; padding: 50px 30px; }
@@ -409,22 +471,19 @@
             </div>
         </div>
 
-        <!-- ================= SECCIÓN CRONOGRAMA CORREGIDA (image_75aedd.png) ================= -->
+        <!-- SECCIÓN CRONOGRAMA CORREGIDA -->
         <section class="cronograma-section">
             <h3 class="section-title">CRONOGRAMA DEL EVENTO</h3>
             
             <div class="new-timeline">
-                <!-- 7:00 PM -->
                 <div class="new-timeline-item">
                     <div class="new-time">7:00 PM</div>
                     <div class="new-desc">Recepcion y Bienvenida</div>
                     <div class="new-icon">
-                        <!-- Puedes reemplazar con tus propios iconos o imágenes locales -->
                         <img src="https://cdn-icons-png.flaticon.com/512/3656/3656836.png" alt="Arco" onerror="this.style.display='none'">
                     </div>
                 </div>
 
-                <!-- 8:00 PM -->
                 <div class="new-timeline-item">
                     <div class="new-time">8:00 PM</div>
                     <div class="new-desc">Cena Formal</div>
@@ -433,7 +492,6 @@
                     </div>
                 </div>
 
-                <!-- 9:00 PM -->
                 <div class="new-timeline-item">
                     <div class="new-time">9:00 PM</div>
                     <div class="new-desc">Brindis y Primer Baile</div>
@@ -442,7 +500,6 @@
                     </div>
                 </div>
 
-                <!-- 9:30 PM -->
                 <div class="new-timeline-item">
                     <div class="new-time">9:30 PM</div>
                     <div class="new-desc">Apertura del Baile</div>
@@ -451,7 +508,6 @@
                     </div>
                 </div>
 
-                <!-- 10:00 PM -->
                 <div class="new-timeline-item">
                     <div class="new-time">10:00 PM</div>
                     <div class="new-desc">Banda</div>
@@ -460,7 +516,6 @@
                     </div>
                 </div>
 
-                <!-- 2:00 AM -->
                 <div class="new-timeline-item">
                     <div class="new-time">2:00 AM</div>
                     <div class="new-desc">Fin del Evento</div>
@@ -470,7 +525,39 @@
                 </div>
             </div>
         </section>
-        <!-- =================================================================================== -->
+
+        <!-- ================= NUEVA SECCIÓN CÓDIGO DE VESTIMENTA ================= -->
+        <section class="vestimenta-section">
+            <h3 class="section-title">Código de Vestimenta</h3>
+            <div class="vestimenta-tipo">FORMAL</div>
+            
+            <div class="vestimenta-grid">
+                <!-- Damas -->
+                <div class="vestimenta-bloque">
+                    <div class="vestimenta-sub">👗 Damas</div>
+                    <div class="vestimenta-detalles">
+                        Vestido Largo.<br>
+                        <strong>Les pedimos amablemente evitar:</strong><br>
+                        Color blanco, tonos claros y gama de colores pastel.
+                    </div>
+                </div>
+                
+                <!-- Caballeros -->
+                <div class="vestimenta-bloque">
+                    <div class="vestimenta-sub">👔 Caballeros</div>
+                    <div class="vestimenta-detalles">
+                        Traje Formal.<br>
+                        <strong>Les solicitamos evitar:</strong><br>
+                        El uso de traje color beige (reservado para el novio).
+                    </div>
+                </div>
+            </div>
+            
+            <div class="vestimenta-agradecimiento">
+                ¡Gracias por ayudarnos a mantener la armonía de nuestra boda!
+            </div>
+        </section>
+        <!-- ===================================================================== -->
 
         <section class="dark-section">
             <h3 class="section-title">DÍA DEL EVENTO</h3>
