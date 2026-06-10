@@ -198,7 +198,7 @@
             border: 2px solid #b3966a;
             border-radius: 12px;
             padding: 55px 24px 45px 24px;
-            margin: 25px 15px;
+            margin: 25px 15px 10px 15px; /* Reducido margen inferior para el texto de abajo */
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             color: #ffffff;
             position: relative;
@@ -227,6 +227,35 @@
         }
         .btn-confirmar-oro:hover { background-color: #9c8055; }
         .msg-pase-exito { color: #4ade80; font-weight: 600; font-size: 0.95rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 25px; display: none; }
+
+        /* Estilos del texto RSVP solicitado abajo del pase */
+        .pase-rsvp-footer-text {
+            padding: 10px 25px 30px 25px;
+            max-width: 380px;
+            margin: 0 auto;
+        }
+        .pase-rsvp-footer-text h4 {
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        .pase-rsvp-footer-text .sub {
+            font-size: 0.7rem;
+            color: #b3966a;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .pase-rsvp-footer-text p {
+            font-size: 0.8rem;
+            color: #555555;
+            line-height: 1.6;
+        }
 
         .section-title { font-size: 1.2rem; letter-spacing: 4px; color: #1a1a1a; margin-bottom: 35px; text-transform: uppercase; font-weight: 400; }
 
@@ -288,69 +317,29 @@
             opacity: 0.8;
         }
 
-        /* ================= SECCIÓN CÓDIGO DE VESTIMENTA ================= */
+        /* SECCIÓN CÓDIGO DE VESTIMENTA INSPIRADA EN IMAGE_75321E.PNG */
         .vestimenta-section {
-            background-color: #fbf9f6; /* Cambio de color sutil para simular otra hoja */
-            padding: 55px 25px;
-            border-top: 1px solid #eae5dc;
+            background-color: #fcfbfa;
+            background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 0), radial-gradient(rgba(0,0,0,0.02) 1px, transparent 0);
+            background-size: 4px 4px;
+            background-position: 0 0, 2px 2px;
+            padding: 65px 20px;
+            border-top: 1px solid #e0dbd1;
+            border-bottom: 1px solid #e0dbd1;
         }
         
-        .vestimenta-tipo {
-            font-size: 1.3rem;
-            color: #b3966a;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            font-weight: 500;
-            margin-bottom: 35px;
-        }
+        .v-title-cursive { font-family: 'Alex Brush', cursive; font-size: 3.5rem; color: #1a1a1a; font-weight: 400; line-height: 1; }
+        .v-title-sub { font-family: 'Montserrat', sans-serif; font-size: 1rem; letter-spacing: 5px; text-transform: uppercase; color: #2c2c2c; margin-top: 5px; margin-bottom: 25px; font-weight: 400; }
+        .v-main-tag { font-family: 'Alex Brush', cursive; font-size: 4.2rem; color: #1a1a1a; font-weight: 400; line-height: 1; margin-bottom: 35px; }
         
-        .vestimenta-grid {
-            max-width: 380px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
+        .v-icons-container { display: flex; justify-content: center; gap: 40px; margin-bottom: 35px; }
+        .v-silhouette { width: 45px; height: 80px; fill: #1a1a1a; }
         
-        .vestimenta-bloque {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #e8e3d9;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-        }
-        
-        .vestimenta-sub {
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #1a1a1a;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        
-        .vestimenta-detalles {
-            font-size: 0.82rem;
-            color: #555555;
-            line-height: 1.6;
-        }
-        
-        .vestimenta-agradecimiento {
-            font-size: 0.8rem;
-            font-style: italic;
-            color: #888888;
-            margin-top: 35px;
-            line-height: 1.5;
-            max-width: 320px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        /* ================================================================ */
+        .v-details-box { max-width: 360px; margin: 0 auto; text-align: center; font-family: 'Montserrat', sans-serif; }
+        .v-row { font-size: 0.95rem; color: #1a1a1a; margin-bottom: 14px; line-height: 1.6; }
+        .v-row strong { font-weight: 500; }
+        .v-restriction { font-size: 0.8rem; color: #666666; display: block; margin-top: 3px; padding: 0 15px; }
+        .v-harmony-msg { font-size: 0.8rem; font-style: italic; color: #888888; margin-top: 40px; max-width: 320px; margin-left: auto; margin-right: auto; line-height: 1.5; letter-spacing: 0.5px; }
 
         /* Secciones Oscuras */
         .dark-section { background-color: #000000; color: #ffffff; padding: 50px 30px; }
@@ -386,7 +375,7 @@
         
         <section class="hero">
             <div class="hero-content">
-                <div class="names-cursive">Yoseli<span class="ampersand">&</span>Bryan</div>
+                <div class="names-cursive">Yoseli<span class="ampersand">&amp;</span>Bryan</div>
             </div>
         </section>
 
@@ -444,6 +433,7 @@
             </div>
         </section>
 
+        <!-- PASE DE ACCESO -->
         <div class="pase-negro-container">
             <h3 class="pase-titulo-oro">Pase de Acceso</h3>
             <p class="pase-subtitulo">Pase personal para el evento</p>
@@ -471,7 +461,14 @@
             </div>
         </div>
 
-        <!-- SECCIÓN CRONOGRAMA CORREGIDA -->
+        <!-- TEXTO RSVP ABAJO DEL PASE DE LA BODA -->
+        <div class="pase-rsvp-footer-text">
+            <h4>RSVP</h4>
+            <span class="sub">CONFIRMACIÓN DE ASISTENCIA</span>
+            <p>PARA NOSOTROS ES MUY IMPORTANTE COMPARTIR ESTE DÍA CONTIGO. POR FAVOR AYÚDANOS A CONFIRMAR TU ASISTENCIA ANTES DEL DÍA 10 DE AGOSTO DE 2026.</p>
+        </div>
+
+        <!-- SECCIÓN CRONOGRAMA -->
         <section class="cronograma-section">
             <h3 class="section-title">CRONOGRAMA DEL EVENTO</h3>
             
@@ -526,53 +523,44 @@
             </div>
         </section>
 
-        <!-- ================= NUEVA SECCIÓN CÓDIGO DE VESTIMENTA ================= -->
+        <!-- SECCIÓN CÓDIGO DE VESTIMENTA MEJORADA (image_75321e.png) -->
         <section class="vestimenta-section">
-            <h3 class="section-title">Código de Vestimenta</h3>
-            <div class="vestimenta-tipo">FORMAL</div>
+            <div class="v-title-cursive">Código de</div>
+            <div class="v-title-sub">VESTIMENTA</div>
+            <div class="v-main-tag">Formal</div>
             
-            <div class="vestimenta-grid">
-                <!-- Damas -->
-                <div class="vestimenta-bloque">
-                    <div class="vestimenta-sub">👗 Damas</div>
-                    <div class="vestimenta-detalles">
-                        Vestido Largo.<br>
-                        <strong>Les pedimos amablemente evitar:</strong><br>
-                        Color blanco, tonos claros y gama de colores pastel.
-                    </div>
+            <div class="v-icons-container">
+                <svg class="v-silhouette" viewBox="0 0 24 24">
+                    <path d="M12,2A1.25,1.25 0 0,0 10.75,3.25A1.25,1.25 0 0,0 12,4.5A1.25,1.25 0 0,0 13.25,3.25A1.25,1.25 0 0,0 12,2M10,6A2,2 0 0,0 8,8V13A1,1 0 0,0 9,14V21A1,1 0 0,0 10,22H11A1,1 0 0,0 12,21V17H13V21A1,1 0 0,0 14,22H15A1,1 0 0,0 16,21V14A1,1 0 0,0 17,13V9C17,7.89 16.1,7 15,7H14V6H10M11,8H13V10H14V11H13V13H11V11H10V10H11V8M18,7V9H19V12H19.5V9H20V7H18Z"/>
+                </svg>
+                <svg class="v-silhouette" viewBox="0 0 24 24">
+                    <path d="M12,2A1.25,1.25 0 0,0 10.75,3.25A1.25,1.25 0 0,0 12,4.5A1.25,1.25 0 0,0 13.25,3.25A1.25,1.25 0 0,0 12,2M11,6C9.89,6 9,6.89 9,8C9,8.9 9.35,9.72 9.9,10.26L8.5,21A1,1 0 0,0 9.5,22H14.5A1,1 0 0,0 15.5,21L14.1,10.26C14.65,9.72 15,8.9 15,8C15,6.89 14.11,6 13,6H11M11,8H13V9H11V8M5,7V9H5.5V12H6V9H7V7H5Z"/>
+                </svg>
+            </div>
+            
+            <div class="v-details-box">
+                <div class="v-row">
+                    <strong>Caballeros:</strong> Traje completo
+                    <span class="v-restriction">(Les solicitamos evitar el uso de traje color beige, reservado para el novio)</span>
                 </div>
-                
-                <!-- Caballeros -->
-                <div class="vestimenta-bloque">
-                    <div class="vestimenta-sub">👔 Caballeros</div>
-                    <div class="vestimenta-detalles">
-                        Traje Formal.<br>
-                        <strong>Les solicitamos evitar:</strong><br>
-                        El uso de traje color beige (reservado para el novio).
-                    </div>
+                <div class="v-row" style="margin-top: 20px;">
+                    <strong>Mujeres:</strong> Vestido largo
+                    <span class="v-restriction">(Les pedimos amablemente evitar el color blanco, tonos claros y gama de colores pastel)</span>
                 </div>
             </div>
             
-            <div class="vestimenta-agradecimiento">
+            <div class="v-harmony-msg">
                 ¡Gracias por ayudarnos a mantener la armonía de nuestra boda!
             </div>
         </section>
-        <!-- ===================================================================== -->
 
+        <!-- UBICACIÓN -->
         <section class="dark-section">
             <h3 class="section-title">DÍA DEL EVENTO</h3>
             <p style="color: #b3966a; font-weight: 600; letter-spacing: 2px;">28 DE AGOSTO DE 2026 | 7:00 PM</p>
             <p style="margin-top: 15px;"><strong>LUGAR DEL EVENTO:</strong><br>JARDÍN Y TERRAZA PUERTA AL PARAÍSO</p>
             <p><strong>DIRECCIÓN:</strong><br>C. ESPAÑA 8451, JUÁREZ, 22040 TIJUANA, B.C.</p>
-            <a href="http://maps.google.com/?q=C.+Espa%C3%B1a+8451,+Ju%C3%A1rez,+22040+Tijuana,+B.C." target="_blank" class="btn-action">Ver ubicación en mapa</a>
-        </section>
-
-        <section class="dark-section" style="border-top: 1px solid #222;">
-            <h3 class="section-title">RSVP</h3>
-            <p style="font-size: 0.75rem; color: #b3966a; letter-spacing: 2px;">CONFIRMACIÓN DE ASISTENCIA</p>
-            <p style="font-size: 0.8rem; margin: 20px 0 0 0; color: #d5d5d5; line-height: 1.6;">
-                PARA NOSOTROS ES MUY IMPORTANTE COMPARTIR ESTE DÍA CONTIGO. POR FAVOR AYÚDANOS A CONFIRMAR TU ASISTENCIA ANTES DEL DÍA 10 DE AGOSTO DE 2026.
-            </p>
+            <a href="http://maps.google.com/?q=C.+Esp%C3%B1a+8451,+Ju%C3%A1rez,+22040+Tijuana,+B.C." target="_blank" class="btn-action">Ver ubicación en mapa</a>
         </section>
 
         <section style="background-color: #f5f2eb; padding-bottom: 50px;">
