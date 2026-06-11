@@ -192,7 +192,7 @@
         .gallery-wide { grid-column: span 1; height: 180px; }
         .gallery-right { grid-column: span 1; height: 260px; margin-top: 40px; }
 
-        /* PASE NEGRO LARGO */
+        /* PASE DE ACCESO ESTILO EXACTO */
         .pase-negro-container {
             background: linear-gradient(135deg, #111111 0%, #1c1c1c 100%);
             border: 2px solid #b3966a;
@@ -225,8 +225,33 @@
             font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.25); transition: all 0.3s ease; margin-top: 10px;
         }
-        .btn-confirmar-oro:hover { background-color: #9c8055; }
-        .msg-pase-exito { color: #4ade80; font-weight: 600; font-size: 0.95rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 25px; display: none; }
+        
+        /* ESTILOS EXACTOS BASADOS EN TUS CAPTURAS (image_10c79b e image_10b8b5) */
+        .msg-asistencia-confirmada {
+            color: #22c55e; 
+            font-weight: 600; 
+            font-size: 1rem; 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+            margin-top: 20px; 
+            display: none;
+        }
+        
+        .btn-no-asistire-bloqueado {
+            display: none;
+            width: 100%;
+            max-width: 290px;
+            padding: 15px 20px;
+            background-color: #4a4a4a; 
+            color: #b3b3b3; 
+            border: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 10px auto 0 auto;
+            cursor: not-allowed;
+        }
 
         /* CONTENEDOR RSVP INFERIOR */
         .pase-rsvp-footer-text {
@@ -474,9 +499,12 @@
                 Por favor de confirmar aquí
             </button>
 
-            <div id="msg-pase-exito" class="msg-pase-exito">
+            <div id="msg-pase-exito" class="msg-asistencia-confirmada">
                 ✓ ¡Asistencia Confirmada!
             </div>
+            <button id="msg-pase-decline" class="btn-no-asistire-bloqueado" disabled>
+                No Asistiré
+            </button>
         </div>
 
         <div class="pase-rsvp-footer-text">
@@ -614,12 +642,34 @@
         document.getElementById('pase-mesa').innerText = mesaAsignada;
         document.getElementById('pase-boletos').innerText = totalPases === '1' ? '1 pase' : `${totalPases} pases`;
 
+        // Generamos una llave de almacenamiento única para este invitado específico
+        const storageKey = "boda_rsvp_" + nombresInvitados.replace(/\s+/g, '_');
+
+        function verificarAsistenciaPrevia() {
+            const respuestaGuardada = localStorage.getItem(storageKey);
+            const btnPrincipal = document.getElementById('btn-principal-rsvp');
+            
+            if (respuestaGuardada) {
+                btnPrincipal.style.display = 'none'; // Desaparece el botón dorado de confirmación
+                
+                if (respuestaGuardada === 'Sí') {
+                    // Muestra el letrero verde estilizado idéntico a image_10c79b.png
+                    document.getElementById('msg-pase-exito').style.display = 'block';
+                } else if (respuestaGuardada === 'No') {
+                    // Muestra el botón gris bloqueado idéntico a image_10b8b5.png
+                    document.getElementById('msg-pase-decline').style.display = 'block';
+                }
+            }
+        }
+
         function startInvitation() {
             document.getElementById('welcome-screen').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('welcome-screen').style.display = 'none';
                 document.getElementById('music-player').style.display = 'flex';
                 document.getElementById('animated-date').classList.add('start-typing');
+                // Al cargar la invitación, verifica si el teléfono ya guardó su voto anterior
+                verificarAsistenciaPrevia();
             }, 1000);
             music.play().catch(e => console.log("Audio diferido"));
         }
@@ -633,6 +683,7 @@
         function closeCalendarModal() { document.getElementById('calendarModalOverlay').classList.remove('show'); }
 
         function openRsvpModal() {
+            if(localStorage.getItem(storageKey)) return; // Previene abrir el modal si ya contestó
             document.getElementById('rsvp-modal-title').textContent = "¿Estás seguro en asistir a la boda?";
             document.getElementById('rsvp-status-text').textContent = "Nos haría muy felices contar con tu presencia en este día tan especial.";
             document.getElementById('rsvp-actions').style.display = "flex";
@@ -640,7 +691,6 @@
         }
         function closeRsvpModal() { document.getElementById('rsvpModalOverlay').classList.remove('show'); }
 
-        // ENVÍO EN SEGUNDO PLANO A GOOGLE SHEETS / EXCEL (¡CONFIGURADO CON TUS DATOS REALES!)
         function submitRSVP(opcion) {
             opcionSeleccionada = opcion;
             const statusText = document.getElementById('rsvp-status-text');
@@ -654,20 +704,17 @@
             const ENTRY_INVITADO = "entry.1725285104";       
             const ENTRY_ASISTENCIA = "entry.263288389";     
             
-            // Crear el formulario invisible apuntando al iframe oculto
             const formVirtual = document.createElement('form');
             formVirtual.action = `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`;
             formVirtual.method = 'POST';
             formVirtual.target = 'hidden_iframe';
 
-            // Campo para enviar el nombre del invitado
             const inputInvitado = document.createElement('input');
             inputInvitado.type = 'hidden';
             inputInvitado.name = ENTRY_INVITADO;
             inputInvitado.value = nombresInvitados;
             formVirtual.appendChild(inputInvitado);
 
-            // Campo para enviar el estado de asistencia ("Sí" o "No")
             const inputAsistencia = document.createElement('input');
             inputAsistencia.type = 'hidden';
             inputAsistencia.name = ENTRY_ASISTENCIA;
@@ -681,25 +728,23 @@
 
         function iframeCargado() {
             if (enviandoFormulario) {
-                const statusText = document.getElementById('rsvp-status-text');
                 const btnPrincipal = document.getElementById('btn-principal-rsvp');
                 
+                // Guarda la respuesta en la memoria interna del navegador del invitado
+                localStorage.setItem(storageKey, opcionSeleccionada);
+                
+                btnPrincipal.style.display = 'none'; // Oculta el botón de confirmar definitivamente
+                
                 if (opcionSeleccionada === 'Sí') {
-                    statusText.textContent = "¡Asistencia confirmada! Muchas gracias.";
-                    btnPrincipal.style.display = 'none';
                     document.getElementById('msg-pase-exito').style.display = 'block';
                 } else {
-                    statusText.textContent = "Entendido. Gracias por avisarnos.";
-                    btnPrincipal.innerText = "No asistiré";
-                    btnPrincipal.disabled = true;
-                    btnPrincipal.style.backgroundColor = "#555555";
-                    btnPrincipal.style.color = "#aaaaaa";
+                    document.getElementById('msg-pase-decline').style.display = 'block';
                 }
                 
                 setTimeout(() => {
                     closeRsvpModal();
                     enviandoFormulario = false;
-                }, 2500);
+                }, 1500);
             }
         }
 
