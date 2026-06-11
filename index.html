@@ -640,6 +640,7 @@
         }
         function closeRsvpModal() { document.getElementById('rsvpModalOverlay').classList.remove('show'); }
 
+        // ENVÍO EN SEGUNDO PLANO A GOOGLE SHEETS / EXCEL (¡CONFIGURADO CON TUS DATOS REALES!)
         function submitRSVP(opcion) {
             opcionSeleccionada = opcion;
             const statusText = document.getElementById('rsvp-status-text');
@@ -649,20 +650,30 @@
             actionsDiv.style.display = "none";
             enviandoFormulario = true;
 
-            const FORM_ID = "1FAIpQLSfXXXXX";   
-            const ENTRY_ID = "entry.123456789"; 
+            const FORM_ID = "1FAIpQLSd3jgumlMK6OYpimRXbPRoMEQvgaEHPtZ4ecyzPqXI-8v0nfQ"; 
+            const ENTRY_INVITADO = "entry.1725285104";       
+            const ENTRY_ASISTENCIA = "entry.263288389";     
             
+            // Crear el formulario invisible apuntando al iframe oculto
             const formVirtual = document.createElement('form');
             formVirtual.action = `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`;
             formVirtual.method = 'POST';
             formVirtual.target = 'hidden_iframe';
 
-            const inputVirtual = document.createElement('input');
-            inputVirtual.type = 'hidden';
-            inputVirtual.name = ENTRY_ID;
-            inputVirtual.value = opcionSeleccionada;
+            // Campo para enviar el nombre del invitado
+            const inputInvitado = document.createElement('input');
+            inputInvitado.type = 'hidden';
+            inputInvitado.name = ENTRY_INVITADO;
+            inputInvitado.value = nombresInvitados;
+            formVirtual.appendChild(inputInvitado);
 
-            formVirtual.appendChild(inputVirtual);
+            // Campo para enviar el estado de asistencia ("Sí" o "No")
+            const inputAsistencia = document.createElement('input');
+            inputAsistencia.type = 'hidden';
+            inputAsistencia.name = ENTRY_ASISTENCIA;
+            inputAsistencia.value = opcionSeleccionada;
+            formVirtual.appendChild(inputAsistencia);
+
             document.body.appendChild(formVirtual);
             formVirtual.submit();
             document.body.removeChild(formVirtual);
