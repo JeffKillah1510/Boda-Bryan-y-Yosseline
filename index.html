@@ -192,7 +192,7 @@
         .gallery-wide { grid-column: span 1; height: 180px; }
         .gallery-right { grid-column: span 1; height: 260px; margin-top: 40px; }
 
-        /* PASE DE ACCESO ESTILO EXACTO */
+        /* PASE DE ACCESO */
         .pase-negro-container {
             background: linear-gradient(135deg, #111111 0%, #1c1c1c 100%);
             border: 2px solid #b3966a;
@@ -226,7 +226,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.25); transition: all 0.3s ease; margin-top: 10px;
         }
         
-        /* ESTILOS EXACTOS BASADOS EN TUS CAPTURAS (image_10c79b e image_10b8b5) */
+        /* ESTADOS REMANENTES */
         .msg-asistencia-confirmada {
             color: #22c55e; 
             font-weight: 600; 
@@ -582,7 +582,7 @@
                     <span class="v-restriction">(Les solicitamos evitar el uso de traje color beige, reservado para el novio)</span>
                 </div>
                 <div class="v-row" style="margin-top: 20px;">
-                    <strong>Mujeres:</strong> Vestido largo
+                    <strong>Damas:</strong> Vestido largo
                     <span class="v-restriction">(Les pedimos amablemente evitar el color blanco, tonos claros y gama de colores pastel)</span>
                 </div>
             </div>
@@ -642,7 +642,6 @@
         document.getElementById('pase-mesa').innerText = mesaAsignada;
         document.getElementById('pase-boletos').innerText = totalPases === '1' ? '1 pase' : `${totalPases} pases`;
 
-        // Generamos una llave de almacenamiento única para este invitado específico
         const storageKey = "boda_rsvp_" + nombresInvitados.replace(/\s+/g, '_');
 
         function verificarAsistenciaPrevia() {
@@ -650,13 +649,11 @@
             const btnPrincipal = document.getElementById('btn-principal-rsvp');
             
             if (respuestaGuardada) {
-                btnPrincipal.style.display = 'none'; // Desaparece el botón dorado de confirmación
+                btnPrincipal.style.display = 'none';
                 
                 if (respuestaGuardada === 'Sí') {
-                    // Muestra el letrero verde estilizado idéntico a image_10c79b.png
                     document.getElementById('msg-pase-exito').style.display = 'block';
                 } else if (respuestaGuardada === 'No') {
-                    // Muestra el botón gris bloqueado idéntico a image_10b8b5.png
                     document.getElementById('msg-pase-decline').style.display = 'block';
                 }
             }
@@ -668,7 +665,6 @@
                 document.getElementById('welcome-screen').style.display = 'none';
                 document.getElementById('music-player').style.display = 'flex';
                 document.getElementById('animated-date').classList.add('start-typing');
-                // Al cargar la invitación, verifica si el teléfono ya guardó su voto anterior
                 verificarAsistenciaPrevia();
             }, 1000);
             music.play().catch(e => console.log("Audio diferido"));
@@ -683,7 +679,7 @@
         function closeCalendarModal() { document.getElementById('calendarModalOverlay').classList.remove('show'); }
 
         function openRsvpModal() {
-            if(localStorage.getItem(storageKey)) return; // Previene abrir el modal si ya contestó
+            if(localStorage.getItem(storageKey)) return;
             document.getElementById('rsvp-modal-title').textContent = "¿Estás seguro en asistir a la boda?";
             document.getElementById('rsvp-status-text').textContent = "Nos haría muy felices contar con tu presencia en este día tan especial.";
             document.getElementById('rsvp-actions').style.display = "flex";
@@ -729,11 +725,8 @@
         function iframeCargado() {
             if (enviandoFormulario) {
                 const btnPrincipal = document.getElementById('btn-principal-rsvp');
-                
-                // Guarda la respuesta en la memoria interna del navegador del invitado
                 localStorage.setItem(storageKey, opcionSeleccionada);
-                
-                btnPrincipal.style.display = 'none'; // Oculta el botón de confirmar definitivamente
+                btnPrincipal.style.display = 'none';
                 
                 if (opcionSeleccionada === 'Sí') {
                     document.getElementById('msg-pase-exito').style.display = 'block';
@@ -748,7 +741,6 @@
             }
         }
 
-        // Cuenta Regresiva
         const eventDate = new Date(2026, 7, 28, 19, 0, 0).getTime();
         setInterval(function() {
             const now = new Date().getTime(); const distance = eventDate - now;
