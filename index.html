@@ -74,11 +74,35 @@
             transition: transform 1.1s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.9s ease, filter 0.9s ease;
         }
 
+        /* --- MONOGRAMA EN DIAGONAL EXCLUSIVO --- */
         .envelope-monogram {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            align-items: center;
+            justify-items: center;
+            max-width: 280px;
+            margin: 0 auto 25px auto;
             font-family: 'Parisienne', cursive;
-            font-size: 5.8rem;
-            margin-bottom: 8px;
             text-shadow: 0 0 20px rgba(253, 246, 186, 0.15);
+        }
+
+        .mono-y {
+            grid-column: 1;
+            font-size: 5.5rem;
+            transform: translate(15px, -10px);
+        }
+
+        .mono-amp {
+            grid-column: 2;
+            font-size: 3rem;
+            transform: translateY(10px);
+            opacity: 0.9;
+        }
+
+        .mono-b {
+            grid-column: 3;
+            font-size: 5.5rem;
+            transform: translate(-15px, 30px);
         }
 
         .envelope-tag {
@@ -353,8 +377,13 @@
     <div id="envelope-wrapper">
         <div class="envelope-panel envelope-top"></div>
         <div class="envelope-center-card">
-            <div class="envelope-monogram gold-text">Y & B</div>
-            <div class="envelope-tag">Pase de Invitación Oficial</div>
+            <!-- MONOGRAMA ASIMÉTRICO EN DIAGONAL -->
+            <div class="envelope-monogram gold-text">
+                <span class="mono-y">Y</span>
+                <span class="mono-amp">&</span>
+                <span class="mono-b">B</span>
+            </div>
+            <div class="envelope-tag" style="margin-top: 45px;">Pase de Invitación Oficial</div>
             <button class="wax-seal-btn" onclick="triggerLuxuryOpening()">
                 <span>Abrir Invitación</span>
             </button>
