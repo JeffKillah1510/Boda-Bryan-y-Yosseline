@@ -16,133 +16,78 @@
             color: #2c2c2c;
             text-align: center;
             overflow-x: hidden;
-            perspective: 1000px; /* Necesario para el efecto 3D */
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* --- PANTALLA INICIAL DEL SOBRE --- */
+        /* --- OVERLAY DEL SOBRE ESTILO INVITAFY (Apertura Deslizable Vertical) --- */
         #envelope-screen {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #e5e2da; /* Color de fondo para que nunca se vea blanco */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s;
-        }
-
-        /* Estructura Base del Sobre */
-        .envelope-container {
-            position: relative;
-            width: 380px;
-            height: 260px;
-            background-color: #f0ede6; /* Cuerpo base del sobre */
-            border-radius: 8px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            overflow: visible; /* Permite que la solapa gire hacia afuera */
-        }
-
-        @media (max-width: 400px) {
-            .envelope-container {
-                width: 90%;
-                height: 220px;
-            }
-        }
-
-        /* SOLAPA SUPERIOR (Diseñada con bordes puros para máxima compatibilidad) */
-        .flap {
-            position: absolute;
-            top: 0; left: 0;
-            width: 0; height: 0;
-            border-left: 190px solid transparent;
-            border-right: 190px solid transparent;
-            border-top: 130px solid #e1ded6; /* Triángulo descendente */
-            z-index: 4;
-            transform-origin: top center;
-            transition: transform 0.8s ease;
-        }
-
-        @media (max-width: 400px) {
-            .flap {
-                border-left-width: 45vw;
-                border-right-width: 45vw;
-                border-top-width: 110px;
-            }
-        }
-
-        /* CUERPO DELANTERO DEL SOBRE (Los laterales que cubren la tarjeta) */
-        .pocket {
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 100%; height: 60%;
-            background-color: #f7f5f0;
-            border-radius: 0 0 8px 8px;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            z-index: 3;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.02);
-        }
-
-        /* LA TARJETA INTERNA (Que se asoma y luego sube) */
-        .card-preview {
-            position: absolute;
-            bottom: 15px;
-            left: 5%;
-            width: 90%;
-            height: 85%;
-            background-color: #ffffff; /* Fondo blanco sólido garantizado */
-            z-index: 2;
-            border-radius: 4px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            border: 1px solid rgba(179, 150, 106, 0.2);
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            top: 0; left: 0; 
+            width: 100%; height: 100%;
+            background-color: #eae7e0; /* Fondo arena suave premium */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            z-index: 99999;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 1s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
         }
 
-        /* SELLO CENTRAL DE "ABRIR" */
-        .seal-sticker {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -30%);
-            width: 60px;
-            height: 60px;
-            background-color: #b3966a;
-            border-radius: 50%;
-            z-index: 5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-size: 0.7rem;
-            letter-spacing: 1px;
+        /* Contenido estético dentro del sobre cerrado */
+        .envelope-content {
+            text-align: center;
+            padding: 20px;
+            max-width: 360px;
+            width: 90%;
+        }
+
+        .envelope-monogram {
+            font-family: 'Parisienne', cursive;
+            font-size: 4.5rem;
+            color: #b3966a;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .envelope-tag {
+            font-size: 0.75rem;
             text-transform: uppercase;
-            box-shadow: 0 4px 10px rgba(179, 150, 106, 0.4);
-            font-weight: 600;
-            transition: opacity 0.3s;
+            letter-spacing: 4px;
+            color: #6e6b64;
+            margin-bottom: 40px;
+            font-weight: 400;
         }
 
-        /* DISPARADORES DE ANIMACIÓN JAVASCRIPT */
-        .open-flap {
-            transform: rotateX(180deg);
-            z-index: 1; /* Se esconde atrás al abrirse */
+        /* Botón de apertura estilo flotante refinado */
+        .btn-open-envelope {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: none;
+            padding: 16px 36px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
-        .pop-card {
-            transform: translateY(-100px);
+
+        .btn-open-envelope:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(179, 150, 106, 0.3);
+            background-color: #b3966a;
         }
-        .hide-seal {
-            opacity: 0;
-            pointer-events: none;
-        }
-        .fade-envelope-screen {
+
+        /* Clase que dispara la animación hacia arriba tipo cortina */
+        .slide-up-envelope {
             transform: translateY(-100%);
-            opacity: 0;
-            pointer-events: none;
+            opacity: 0.9;
         }
 
         /* --- CONTENEDOR PRINCIPAL DE LA INVITACIÓN --- */
@@ -153,10 +98,10 @@
             min-height: 100vh; 
             padding-bottom: 80px; 
             position: relative;
-            box-shadow: 0 0 30px rgba(0,0,0,0.08);
+            box-shadow: 0 0 35px rgba(0,0,0,0.06);
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1s ease 0.4s, transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+            transform: translateY(20px);
+            transition: opacity 1s ease 0.3s, transform 1s cubic-bezier(0.215, 0.610, 0.355, 1) 0.3s;
         }
 
         .container.show {
@@ -164,7 +109,7 @@
             transform: translateY(0);
         }
 
-        /* --- TIPOGRAFÍAS Y DISEÑO INTERNO --- */
+        /* --- TIPOGRAFÍAS Y ELEMENTOS DE LA INVITACIÓN --- */
         .names-cursive { 
             font-family: 'Alex Brush', cursive; 
             font-size: 3.4rem; 
@@ -184,29 +129,29 @@
 
         section { padding: 45px 25px; position: relative; }
         
-        /* Portada Interna de la invitación */
+        /* Portada Interna Principal */
         .hero {
-            position: relative; height: 480px; display: flex; flex-direction: column;
-            justify-content: flex-end; padding-bottom: 50px;
+            position: relative; height: 500px; display: flex; flex-direction: column;
+            justify-content: flex-end; padding-bottom: 60px;
             background-image: url('foto_portada.jpg'); 
             background-size: cover; background-position: center;
         }
         .hero::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.8) 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 20%, rgba(0,0,0,0.75) 100%);
         }
         .hero-content { position: relative; z-index: 2; color: #f5f2eb; }
         .hero .names-cursive { color: #f5f2eb; font-size: 3.8rem; }
         .hero .ampersand { color: #f5f2eb; font-size: 4.2rem; }
 
         /* Cuenta Regresiva */
-        .countdown-section { background-color: #ffffff; padding: 35px 25px 25px 25px; }
+        .countdown-section { background-color: #ffffff; padding: 40px 25px 25px 25px; }
         .countdown { display: flex; justify-content: center; gap: 10px; margin-top: 25px; }
         .time-block { background: #faf8f5; border: 1px solid #e3ded4; padding: 12px 5px; border-radius: 8px; min-width: 75px; }
         .time-block span { display: block; font-size: 1.5rem; font-weight: 600; color: #1a1a1a; }
         .time-block label { font-size: 0.65rem; text-transform: uppercase; color: #777; letter-spacing: 1px; }
 
-        /* Efecto de Escritura */
+        /* Animación de Escritura para la Fecha */
         .typing-wrapper { display: flex; justify-content: center; margin-bottom: 15px; min-height: 25px; }
         .typing-container {
             font-size: 1.05rem; font-weight: 500; color: #b3966a; letter-spacing: 2px;
@@ -218,22 +163,22 @@
         /* Botón Calendario */
         .calendar-wrapper { display: flex; justify-content: center; width: 100%; margin-top: 25px; }
         .btn-calendar {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 20px;
             border: 1px solid #b3966a; background-color: transparent; color: #b3966a; font-size: 0.75rem;
             text-transform: uppercase; letter-spacing: 2px; font-weight: 500; cursor: pointer; border-radius: 4px;
             transition: all 0.3s ease; text-decoration: none; width: 100%; max-width: 280px;
         }
         .btn-calendar:hover { background-color: #b3966a; color: #ffffff; }
 
-        /* Modales */
+        /* Modales Estilo iOS / Modernos */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4);
-            display: none; justify-content: center; align-items: center; z-index: 10000;
+            display: none; justify-content: center; align-items: center; z-index: 100000;
         }
         .modal-overlay.show { display: flex; }
         .calendar-modal, .rsvp-modal {
             background-color: #f4f4f4; width: 310px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-            overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: left;
+            overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; text-align: left;
         }
         .modal-options-list { display: flex; flex-direction: column; background-color: #ffffff; }
         .modal-options-list a {
@@ -258,10 +203,10 @@
         .gallery-wide { grid-column: span 1; height: 180px; }
         .gallery-right { grid-column: span 1; height: 260px; margin-top: 40px; }
 
-        /* PASE DE ACCESO */
+        /* TARJETA DE REQUERIMIENTO / PASE */
         .pase-negro-container {
             background: linear-gradient(135deg, #111111 0%, #1c1c1c 100%); border: 2px solid #b3966a; border-radius: 12px;
-            padding: 55px 24px 45px 24px; margin: 25px 15px 10px 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); color: #ffffff; position: relative;
+            padding: 55px 24px 45px 24px; margin: 25px 15px 10px 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.25); color: #ffffff; position: relative;
         }
         .pase-titulo-oro { font-size: 1.4rem; letter-spacing: 4px; color: #b3966a; text-transform: uppercase; margin-bottom: 8px; }
         .pase-subtitulo { font-size: 0.75rem; color: #888888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 35px; }
@@ -271,7 +216,8 @@
         .pase-info-block:first-child { border-right: 1px solid #2c2c2c; }
         .pase-info-label { font-size: 0.65rem; text-transform: uppercase; color: #777; letter-spacing: 1px; }
         .pase-info-value { font-size: 1.15rem; font-weight: 500; color: #ffffff; margin-top: 6px; }
-        .btn-confirmar-oro { width: 100%; max-width: 290px; padding: 15px 20px; background-color: #b3966a; color: #ffffff; border: none; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
+        .btn-confirmar-oro { width: 100%; max-width: 290px; padding: 15px 20px; background-color: #b3966a; color: #ffffff; border: none; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: background 0.3s; }
+        .btn-confirmar-oro:hover { background-color: #967d56; }
         
         .msg-asistencia-confirmada { color: #22c55e; font-weight: 600; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 20px; display: none; }
         .btn-no-asistire-bloqueado { display: none; width: 100%; max-width: 290px; padding: 15px 20px; background-color: #4a4a4a; color: #b3b3b3; border: none; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; cursor: not-allowed; }
@@ -283,7 +229,7 @@
 
         .section-title { font-size: 1.2rem; letter-spacing: 4px; color: #1a1a1a; margin-bottom: 35px; text-transform: uppercase; }
 
-        /* Cronograma */
+        /* Cronograma Línea Temática */
         .cronograma-section { background-color: #ffffff; padding: 50px 20px; }
         .new-timeline { max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; }
         .new-timeline-item { display: flex; align-items: center; justify-content: space-between; padding: 20px 5px; border-bottom: 1.5px solid #3b3b5c; text-align: left; }
@@ -293,7 +239,7 @@
         .new-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .new-icon img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* Código de vestimenta */
+        /* Código de Vestimenta */
         .vestimenta-section { background-color: #fcfbfa; padding: 65px 20px; border-top: 1px solid #e0dbd1; border-bottom: 1px solid #e0dbd1; }
         .v-title-cursive { font-family: 'Alex Brush', cursive; font-size: 3.5rem; line-height: 1; }
         .v-title-sub { font-size: 1rem; letter-spacing: 5px; text-transform: uppercase; margin-top: 5px; margin-bottom: 25px; }
@@ -303,7 +249,7 @@
         .v-restriction { font-size: 0.8rem; color: #666666; display: block; margin-top: 3px; }
         .v-harmony-msg { font-size: 0.8rem; font-style: italic; color: #888888; margin-top: 40px; line-height: 1.5; }
 
-        /* Regalos */
+        /* Lluvia de Sobres */
         .regalos-section { background-color: #fbf9f5; padding: 60px 25px; border-bottom: 1px solid #e0dbd1; }
         .r-title-cursive { font-family: 'Alex Brush', cursive; font-size: 3.5rem; line-height: 1; }
         .r-title-sub { font-size: 0.95rem; letter-spacing: 5px; text-transform: uppercase; margin-top: 5px; margin-bottom: 30px; }
@@ -313,40 +259,31 @@
         .dark-section { background-color: #000000; color: #ffffff; padding: 50px 30px; }
         .dark-section .section-title { color: #ffffff; }
         .dark-section p { font-size: 0.85rem; color: #e0e0e0; line-height: 1.8; margin-bottom: 15px; }
-        .btn-action { display: inline-block; padding: 14px 30px; background-color: #ffffff; color: #000000; text-decoration: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-top: 15px; border: 1px solid #ffffff; width: 100%; max-width: 280px; }
+        .btn-action { display: inline-block; padding: 14px 30px; background-color: #ffffff; color: #000000; text-decoration: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-top: 15px; border: 1px solid #ffffff; width: 100%; max-width: 280px; text-align: center; }
 
         .foto-final-img { width: 85%; height: auto; max-height: 300px; object-fit: cover; margin: 25px auto 0 auto; display: block; border-radius: 4px; }
 
-        #music-player { position: fixed; bottom: 25px; right: 25px; background: rgba(255, 255, 255, 0.95); border: 1px solid #e3ded4; padding: 8px 14px; border-radius: 30px; display: flex; align-items: center; gap: 10px; z-index: 1000; }
-        .player-btn { background: #1a1a1a; color: white; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; }
+        /* Controles Música Flotante */
+        #music-player { position: fixed; bottom: 25px; right: 25px; background: rgba(255, 255, 255, 0.95); border: 1px solid #e3ded4; padding: 8px 14px; border-radius: 30px; display: flex; align-items: center; gap: 10px; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .player-btn { background: #1a1a1a; color: white; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; }
     </style>
 </head>
 <body>
 
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(typeof iframeCargado !== 'undefined') { iframeCargado(); }"></iframe>
 
-    <!-- VISTA DEL SOBRE SEGURO Y ULTRA-COMPATIBLE -->
-    <div id="envelope-screen" onclick="openEnvelope()">
-        <div class="envelope-container">
-            <!-- Solapa Superior -->
-            <div class="flap" id="envelope-flap"></div>
-            
-            <!-- Sello Central -->
-            <div class="seal-sticker" id="envelope-seal">Abrir</div>
-            
-            <!-- Cuerpo Inferior -->
-            <div class="pocket"></div>
-            
-            <!-- Tarjeta Asomándose -->
-            <div class="card-preview" id="envelope-card">
-                <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px; color: #888;">Nuestra Boda</span>
-                <div class="names-cursive" style="font-size: 2.1rem; margin-top: 5px;">Yoseli<span class="ampersand" style="font-size: 2.3rem;">&</span>Bryan</div>
-                <span style="font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; color: #b3966a; margin-top: 8px;">Toca para abrir</span>
-            </div>
+    <!-- PANTALLA INICIAL DE SOBRE VERTICAL ESTILO INVITAFY -->
+    <div id="envelope-screen">
+        <div class="envelope-content">
+            <div class="envelope-monogram">Y & B</div>
+            <div class="envelope-tag">Nuestra Invitación de Boda</div>
+            <button class="btn-open-envelope" onclick="openInvitafyEnvelope()">
+                <span>Abrir Invitación</span> ✉
+            </button>
         </div>
     </div>
 
-    <!-- INVITACIÓN PRINCIPAL -->
+    <!-- CUERPO DE LA INVITACIÓN -->
     <div class="container" id="main-invitation">
         
         <section class="hero">
@@ -374,7 +311,7 @@
             </div>
         </section>
 
-        <!-- Modales de Calendario y RSVP -->
+        <!-- Modales funcionales -->
         <div id="calendarModalOverlay" class="modal-overlay" onclick="closeCalendarModal()">
             <div class="calendar-modal" onclick="event.stopPropagation()">
                 <div class="modal-options-list">
@@ -410,7 +347,7 @@
             </div>
         </section>
 
-        <!-- PASE DE ACCESO -->
+        <!-- SECCIÓN PERSONALIZADA DEL PASE DE ACCESO -->
         <div class="pase-negro-container">
             <h3 class="pase-titulo-oro">Pase de Acceso</h3>
             <p class="pase-subtitulo">Pase personal para el evento</p>
@@ -489,7 +426,7 @@
 
     <!-- REPRODUCTOR MÚSICA -->
     <div id="music-player" style="display: none;">
-        <span class="music-title">🎵 Canción de Fondo</span>
+        <span class="music-title" style="font-size: 0.75rem; font-weight: 500;">🎵 Música de Fondo</span>
         <button class="player-btn" id="play-pause-btn" onclick="toggleMusic()">❚❚</button>
     </div>
 
@@ -501,7 +438,7 @@
         let enviandoFormulario = false;
         let opcionSeleccionada = "";
 
-        // Lectura de parámetros URL
+        // Lectura de parámetros URL dinámicos
         const urlParams = new URLSearchParams(window.location.search);
         const nombresInvitados = urlParams.get('invitados') || 'Invitado Especial';
         const mesaAsignada = urlParams.get('mesa') || 'Por asignar';
@@ -526,23 +463,25 @@
             }
         }
 
-        // ANIMACIÓN DE APERTURA MEJORADA
-        function openEnvelope() {
-            document.getElementById('envelope-flap').classList.add('open-flap');
-            document.getElementById('envelope-seal').classList.add('hide-seal');
+        // ANIMACIÓN VERTICAL ESTILO INVITAFY (Sube limpiamente)
+        function openInvitafyEnvelope() {
+            const envelope = document.getElementById('envelope-screen');
+            envelope.classList.add('slide-up-envelope');
             
             setTimeout(() => {
-                document.getElementById('envelope-card').classList.add('pop-card');
-            }, 250);
-
-            setTimeout(() => {
-                document.getElementById('envelope-screen').classList.add('fade-envelope-screen');
                 document.getElementById('main-invitation').classList.add('show');
                 document.getElementById('music-player').style.display = 'flex';
                 document.getElementById('animated-date').classList.add('start-typing');
                 verificarAsistenciaPrevia();
-                music.play().catch(e => console.log("Audio diferido"));
-            }, 1100);
+                
+                // Intenta reproducir la música (manejando políticas del navegador)
+                music.play().catch(e => console.log("Audio esperando interacción"));
+            }, 400);
+
+            // Elimina por completo el overlay después de la transición para permitir scrolls fluidos
+            setTimeout(() => {
+                envelope.style.display = 'none';
+            }, 1300);
         }
 
         function toggleMusic() {
@@ -602,7 +541,7 @@
             }
         }
 
-        // Cuenta Regresiva
+        // Sistema del Contador de Tiempo
         const eventDate = new Date(2026, 7, 28, 19, 0, 0).getTime();
         setInterval(function() {
             const now = new Date().getTime(); const distance = eventDate - now;
