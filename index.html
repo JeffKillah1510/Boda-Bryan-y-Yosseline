@@ -12,18 +12,101 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #f5f2eb; 
+            background-color: #e3ded4; /* Fondo exterior más oscuro para simular una mesa o superficie */
             color: #2c2c2c;
             text-align: center;
             overflow-x: hidden;
         }
-        #welcome-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #f5f2eb; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 9999;
-            transition: opacity 1s ease-in-out;
+
+        /* --- ESTILOS DEL SOBRE DE INVITACIÓN --- */
+        #envelope-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #e3ded4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            background-color: #f5f2eb; /* Color del sobre */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Líneas decorativas simulando las solapas del sobre posterior */
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(145deg, transparent 49.5%, #eadecc 50%, #f5f2eb 51%);
+            z-index: 1;
+            pointer-events: none;
         }
         
+        .envelope::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(35deg, #f0ebd1 49%, #e3ded4 50%, transparent 51%);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        .envelope-content {
+            position: relative;
+            z-index: 2;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 8px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(179, 150, 106, 0.3);
+            width: 85%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        /* Animación de apertura */
+        .envelope-opened {
+            transform: translateY(-150%) scale(0.9);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* --- CONTENEDOR PRINCIPAL DE LA INVITACIÓN --- */
+        .container { 
+            max-width: 450px; 
+            margin: 0 auto; 
+            background-color: #ffffff; 
+            min-height: 100vh; 
+            padding-bottom: 80px; 
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .container.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- TIPOGRAFÍAS Y ELEMENTOS GENERALES --- */
         .names-cursive { 
             font-family: 'Alex Brush', cursive; 
             font-size: 3.4rem; 
@@ -42,14 +125,19 @@
         }
         
         .btn-enter {
-            padding: 12px 35px; font-size: 0.85rem; background-color: #1a1a1a; color: #f5f2eb;
+            padding: 14px 35px; font-size: 0.85rem; background-color: #1a1a1a; color: #f5f2eb;
             border: none; border-radius: 25px; cursor: pointer; letter-spacing: 3px;
-            text-transform: uppercase; margin-top: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-transform: uppercase; margin-top: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
         }
-        .container { max-width: 450px; margin: 0 auto; background-color: #ffffff; min-height: 100vh; padding-bottom: 80px; position: relative; }
+        
+        .btn-enter:hover {
+            background-color: #b3966a;
+        }
+
         section { padding: 45px 25px; position: relative; }
         
-        /* Portada */
+        /* Portada Interna */
         .hero {
             position: relative; height: 480px; display: flex; flex-direction: column;
             justify-content: flex-end; padding-bottom: 50px;
@@ -409,13 +497,17 @@
 
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(typeof iframeCargado !== 'undefined') { iframeCargado(); }"></iframe>
 
-    <div id="welcome-screen">
-        <h2 style="font-family: 'Montserrat', sans-serif; font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: #777; margin-bottom: 10px;">Nuestra Boda</h2>
-        <div class="names-cursive">Yoseli<span class="ampersand">&</span>Bryan</div>
-        <button class="btn-enter" onclick="startInvitation()">Abrir Invitación</button>
+    <div id="envelope-wrapper">
+        <div class="envelope" id="physical-envelope">
+            <div class="envelope-content">
+                <h2 style="font-family: 'Montserrat', sans-serif; font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: #777; margin-bottom: 15px;">Nuestra Boda</h2>
+                <div class="names-cursive" style="font-size: 3rem;">Yoseli<span class="ampersand" style="font-size: 3.4rem;">&</span>Bryan</div>
+                <button class="btn-enter" onclick="openEnvelope()">Abrir Sobre</button>
+            </div>
+        </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="main-invitation">
         
         <section class="hero">
             <div class="hero-content">
@@ -633,6 +725,7 @@
         let enviandoFormulario = false;
         let opcionSeleccionada = "";
 
+        // Lectura de parámetros URL
         const urlParams = new URLSearchParams(window.location.search);
         const nombresInvitados = urlParams.get('invitados') || 'Invitado Especial';
         const mesaAsignada = urlParams.get('mesa') || 'Por asignar';
@@ -659,15 +752,26 @@
             }
         }
 
-        function startInvitation() {
-            document.getElementById('welcome-screen').style.opacity = '0';
+        // FUNCION DE APERTURA TIPO SOBRE
+        function openEnvelope() {
+            // Desplaza el sobre simulando la apertura
+            document.getElementById('physical-envelope').classList.add('envelope-opened');
+            
             setTimeout(() => {
-                document.getElementById('welcome-screen').style.display = 'none';
-                document.getElementById('music-player').style.display = 'flex';
-                document.getElementById('animated-date').classList.add('start-typing');
-                verificarAsistenciaPrevia();
+                document.getElementById('envelope-wrapper').style.display = 'none';
             }, 1000);
-            music.play().catch(e => console.log("Audio diferido"));
+
+            // Muestra suavemente la invitación principal hacia arriba
+            const mainInvitation = document.getElementById('main-invitation');
+            mainInvitation.classList.add('show');
+            
+            // Inicia utilidades secundarias
+            document.getElementById('music-player').style.display = 'flex';
+            document.getElementById('animated-date').classList.add('start-typing');
+            verificarAsistenciaPrevia();
+            
+            // Intenta reproducir la música de fondo
+            music.play().catch(e => console.log("Permiso de audio diferido por el navegador"));
         }
 
         function toggleMusic() {
@@ -742,6 +846,7 @@
             }
         }
 
+        // Cuenta Regresiva
         const eventDate = new Date(2026, 7, 28, 19, 0, 0).getTime();
         setInterval(function() {
             const now = new Date().getTime(); const distance = eventDate - now;
